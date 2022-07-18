@@ -81,7 +81,7 @@ li a {
   display: block;
   color: rgb(146, 146, 146);
   text-align: center;
-  font-size: 2.5vh;
+  font-size: 1vw;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-transform: uppercase;
   text-decoration: none;
@@ -96,9 +96,10 @@ li a:hover {
 }
 
 .yellow_button {
+  text-align: center;
   background-color: #ffd000;
   color: black;
-  width: 5vw;
+  width: 10vw;
   padding: 0.5vw 1.5vw;
   outline: none;
   border-radius: 1.625rem;
