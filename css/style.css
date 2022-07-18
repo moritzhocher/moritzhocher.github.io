@@ -112,6 +112,15 @@ li a:hover {
   border-radius: 1.625rem;
 }
 
+
+/* menu bar */
+
+.description {
+  font-size: 1.5vw;
+  padding: 1vw 5vw;
+}
+
+
 /* gallery */
 
 
