@@ -173,7 +173,7 @@ li a:hover {
   filter: grayscale(100%);
   position: absolute;
   top: calc(0px - var(--up));
-  left: -1vw;
+  left: -2vw;
   object-position: var(--position);
   transform: skew(-5deg);
 }
