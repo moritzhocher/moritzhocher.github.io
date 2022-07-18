@@ -118,6 +118,8 @@ li a:hover {
 .description {
   font-size: 1.5vw;
   padding: 1vw 5vw;
+  color: #d0d0d0;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 
