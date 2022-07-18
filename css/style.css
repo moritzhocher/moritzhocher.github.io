@@ -97,8 +97,8 @@ li a:hover {
 .yellow_button {
   background-color: #ffd000;
   color: black;
-  width: 55%;
-  padding: 1vh;
+  width: 6vw;
+  padding: 0.5vw;
   outline: none;
   border-radius: 1.625rem;
   margin-right: 3rem;
