@@ -258,8 +258,8 @@ li a:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 10vw;
-  max-width: 80vw;
-  max-height: 80vh;
+  max-width: 95vw;
+  max-height: 95vh;
   border-radius: 13vw;
 }
 
