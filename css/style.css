@@ -238,6 +238,10 @@ li a:hover {
   }
 }
 
+#videoitem {
+  border-radius: 0.5vw;
+}
+
 
 /* popup-image traditional art gallery */
 
@@ -271,4 +275,15 @@ li a:hover {
   color: white;
   cursor: pointer;
   z-index: 100;
+}
+
+/* popup-image traditional art gallery */
+
+.contactform {
+  width: 50vw;
+  height: 20vh;
+  margin: 10vw 15vh;
+  background-color: #FF9933;
+  text-align: center;
+  padding: 10vw;
 }

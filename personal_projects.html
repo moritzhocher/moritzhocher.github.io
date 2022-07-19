@@ -25,14 +25,55 @@
   </ul>
 
 
-  <!-- gallery -->
+ <!-- simple gallery -->
+
+ <div class="container">
+  <!-- heading text -->
+  <div class="image-gallery">
+    <div class="column">
+      <div class="imageitem">
+        <img src="images/Fun/zombie/zombie.png" onclick="Fullview(this.src)" alt="" />
+      </div>
+      <video id="videoitem" src="images/Fun/Minion/turntable_minion.mkv" autoplay loop controls></video>
+      <div class="imageitem">
+        <img src="images/Fun/Minion/render2.png" onclick="Fullview(this.src)" alt="" />
+      </div>
+    </div>
+    <div class="column">
+      <video id="videoitem" src="images/Fun/zombie/creaturesculpt_turnaround.mkv" autoplay loop controls></video>
+      <div class="imageitem">
+        <img src="images/Fun/zombie/side_view_textured.png" onclick="Fullview(this.src)" alt="" />
+      </div>
+      <div class="imageitem">
+        <img src="images/TraditionalArt/compressed/rider-min.jpg" onclick="Fullview(this.src)" alt="" />
+      </div>
+      <div class="imageitem">
+        <img src="images/TraditionalArt/compressed/rider-min.jpg" onclick="Fullview(this.src)" alt="" />
+      </div>
+    </div>
+    <div class="column">
+      <div class="imageitem">
+        <img src="images/Fun/zombie/side_view_textured.png" onclick="Fullview(this.src)" alt="" />
+      </div>
+      <div class="imageitem">
+        <img src="images/TraditionalArt/compressed/motorcycle-min.jpg" onclick="Fullview(this.src)" alt="" />
+      </div>
+      <div class="imageitem">
+        <img src="images/TraditionalArt/compressed/motorcycle-min.jpg" onclick="Fullview(this.src)" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <span id="CloseButton" onclick="CloseFullscreen()">
+  <div id="FullscreenPopup">
+    <img id="FullscreenImg">
+  </div>
+  </span>
 
 
 
-  <!-- javascript code -->
-
-  <link rel="stylesheet" href="javascript/javascript.js" />
-
+<!-- javascript code -->
+<script type="text/javascript" src="javascript/javascript.js"></script>
 
 </body>
 </html>
