@@ -240,67 +240,33 @@ li a:hover {
 
 /* popup-image traditional art gallery */
 
-.popup-image {
-  display: none;
+#FullscreenPopup {
   position: fixed;
-  top: 0; left: 0;
-  background: rgba(0,0,0, 0.8);
-  height: 100vh;
-  width: 100vw;
-  z-index: 100;
-}
-
-.popup-image span{
-  position: absolute;
-  top: 2vh; right: 5vh;
-  font-size: 2vw;
-  font-weight: bolder;
-  cursor: pointer;
-  color: #ffffff;
-  z-index: 100;
-}
-
-.popup-image img{
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80vw;
-  height: 80vh;
-  object-fit: cover;
-}
-
-@media (max-width:80vw){
-  .popup-image img{
-      width: 95%;
-  }
-}
-
-/* test gallery */
-
-.testcont {
-  margin: auto;
-  background-color: #FF9933;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 61vw;
-  gap: 1vw;
-  padding: 1vw;
-}
-
-.image {
-  width: 30vw;
-  height: 18vw;
-  overflow: hidden;
-}
-
-.image img {
-  height: 100%;
+  top: 0;
+  left: 0;
   width: 100%;
-  transition: .2s linear;
-  cursor: pointer;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  display: none;
+  text-align: center;
 }
 
-.image:hover img {
-  transform: scale(1.5);
+#FullscreenImg {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% -50%);
+  padding: 10vw;
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 13vw;
+}
+
+#CloseButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 5vw;
+  color: white;
+  cursor: pointer;
+  z-index: 100;
 }
