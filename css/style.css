@@ -286,4 +286,11 @@ li a:hover {
   background-color: #FF9933;
   text-align: center;
   padding: 10vw;
+  border-radius: 5vw;
+}
+
+#Message {
+  height: 10vh;
+  text-align: start;
+  border-radius: 1vw;
 }
