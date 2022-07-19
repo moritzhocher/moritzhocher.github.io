@@ -30,76 +30,81 @@
     <!-- heading text -->
     <div class="image-gallery">
       <div class="column">
-        <div class="image-item">
-          <img src="images/Traditional Art/medicus.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/medicus.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/sitting.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/sitting.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/strange.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/strange.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/elf_filtered.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/elf_filtered.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/anatomy.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/anatomy.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
       </div>
       <div class="column">
-        <div class="image-item">
-          <img src="images/Traditional Art/rider_filtered.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/rider_filtered.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/fisherman_bw.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/fisherman_bw.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/science_bunny.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/science_bunny.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/creepy_man.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/creepy_man.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/deamon.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/deamon.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
       </div>
       <div class="column">
-        <div class="image-item">
-          <img src="images/Traditional Art/motorcycle.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/motorcycle.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/eye.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/eye.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="/images/Traditional Art/doorway.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="/images/TraditionalArt/doorway.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/temptation.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/temptation.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
-        <div class="image-item">
-          <img src="images/Traditional Art/panther.jpg" alt="" />
-          <div class="overlay"><span>Image title</span></div>
+        <div class="imageitem">
+          <img src="images/TraditionalArt/panther.jpg" onclick="Fullview(this.src)" alt="" />
         </div>
       </div>
     </div>
 
 
-  <!-- javascript code -->
 
+  <!-- test-gallery -->
+  <div class="testcont" id="gala">
+    <div class="image"><img src="images/Fun/Minion/render2.png" alt=""></div>
+    <div class="image"><img src="images/Fun/Minion/render2.png" alt=""></div>
+    <div class="image"><img src="images/Fun/Minion/render2.png" alt=""></div>
+    <div class="image"><img src="images/Fun/Minion/render2.png" alt=""></div>
+    <div class="image"><img src="images/Fun/Minion/render2.png" alt=""></div>
+    <div class="image"><img src="images/Fun/Minion/render2.png" alt=""></div>
+  </div>
+
+
+  <div class="popup-image" id="overlay">
+    <span id="closebutton" onclick="CloseFullView()">&times;</span>
+    <img id="oerlayimg" src="images/TraditionalArt/deamon.jpg" alt="">
+  </div>
+
+
+  <p id="out">JavaScript can change HTML content.</p>
+
+  <!-- javascript code -->
+  <script type="text/javascript" src="javascript/javascript.js"></script>
   <link rel="stylesheet" href="javascript/javascript.js" />
 
 

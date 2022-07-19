@@ -214,11 +214,21 @@ li a:hover {
   width: 33.33vw;
 }
 
-.image-item img {
+.imageitem {
+  overflow: hidden;
+  border-radius: 0.5vw;
+}
+
+.imageitem img {
   width: 100%;
   border-radius: 5px;
   height: 100%;
   object-fit: cover;
+  transition: 0.1s linear;
+}
+
+.imageitem:hover img{
+  transform: scale(1.2);
 }
 
 @media only screen and (min-width: 1vw) {
@@ -228,3 +238,69 @@ li a:hover {
 }
 
 
+/* popup-image traditional art gallery */
+
+.popup-image {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  background: rgba(0,0,0, 0.8);
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+}
+
+.popup-image span{
+  position: absolute;
+  top: 2vh; right: 5vh;
+  font-size: 2vw;
+  font-weight: bolder;
+  cursor: pointer;
+  color: #ffffff;
+  z-index: 100;
+}
+
+.popup-image img{
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vh;
+  object-fit: cover;
+}
+
+@media (max-width:80vw){
+  .popup-image img{
+      width: 95%;
+  }
+}
+
+/* test gallery */
+
+.testcont {
+  margin: auto;
+  background-color: #FF9933;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 61vw;
+  gap: 1vw;
+  padding: 1vw;
+}
+
+.image {
+  width: 30vw;
+  height: 18vw;
+  overflow: hidden;
+}
+
+.image img {
+  height: 100%;
+  width: 100%;
+  transition: .2s linear;
+  cursor: pointer;
+}
+
+.image:hover img {
+  transform: scale(1.5);
+}
