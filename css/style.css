@@ -21,6 +21,7 @@
 body {
   background-color: rgb(55, 55, 55);
   margin: 0%;
+  overflow-y: overlay;
 }
 
 /* video container with header */
@@ -59,6 +60,25 @@ h1 {
 
 h2 {
   font-size: 2vw;
+}
+
+
+/* scroll bar */
+
+
+::-webkit-scrollbar {
+  width: 1.5vw;
+}
+
+::-webkit-scrollbar-track{
+  margin-top: calc(3vw + 3vh);
+  background:transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 1.5vw;
+  background: #191919;
+  border-radius: 0.75vw;
 }
 
 
@@ -321,7 +341,7 @@ li a:hover {
   margin: 15vh 5vw;
   background-color:  rgba(17, 17, 17, 1);
   text-align: left;
-  border-radius: 2vh;
+  border-radius: calc(1.5vh + 1.5vw);
   align-items: center;
   display: flex;
 }
@@ -334,7 +354,7 @@ li a:hover {
   margin: 15vh 5vw;
   background-color:  rgba(17, 17, 17, 1);
   text-align: left;
-  border-radius: 2vh;
+  border-radius: calc(1.5vh + 1.5vw);
   align-items: center;
 }
 
@@ -350,4 +370,12 @@ li a:hover {
   margin: 2%;
   color: #d0d0d0;
   font-size: 1.5vw;
+}
+
+#verticle_stack{
+  position: relative;
+  height: 100%;
+  width: 45%;
+  align-items: top;
+  float: left;
 }
