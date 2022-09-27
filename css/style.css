@@ -18,10 +18,15 @@
 
 /* body layout */
 
+html{
+  cursor: pointer;
+}
+
 body {
   background-color: rgb(55, 55, 55);
   margin: 0%;
   overflow-y: overlay;
+  cursor: default;
 }
 
 /* video container with header */
@@ -81,6 +86,9 @@ h2 {
   border-radius: 0.75vw;
 }
 
+::-webkit-scrollbar-thumb:hover {
+  background: #FF9933;
+}
 
 /* menu bar */
 
@@ -101,7 +109,7 @@ li a {
   display: block;
   color: rgb(146, 146, 146);
   text-align: center;
-  font-size: calc(1vw + 0.7vh);
+  font-size: calc(0.8vw + 0.7vh);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-transform: uppercase;
   text-decoration: none;
@@ -116,7 +124,7 @@ li a:hover {
 }
 
 .yellow_button {
-  background-color: #ffd000;
+  background-color:#FF9933;
   color: black;
 
   padding: 1vh 1.5vw;
@@ -152,13 +160,30 @@ li a:hover {
 /* description */
 
 .description {
-  height: 30vh;
+  height: 15vw;
   font-size: 1.8vw;
   padding: 1vw 5vw;
   color: #d0d0d0;
   font-family: 'Courier New', Courier, monospace;
 }
 
+
+/* profile picture */
+
+.profile_picture{
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 30vw;
+  padding: 7vw;
+}
+
+.profile_picture img{
+  border-radius: 50%;
+  position: relative;
+  width: 30vw;
+}
 
 /* gallery */
 
@@ -332,7 +357,7 @@ li a:hover {
   border-radius: 1vw;
 }
 
-/* popup-image traditional art gallery */
+/* commercial work page */
 
 .blogpostsmall{
   position: relative;
