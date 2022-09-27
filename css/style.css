@@ -113,12 +113,27 @@ li a:hover {
   border-radius: 1.625rem;
 }
 
+.logo{
+  height: calc(1vw + 0.7vh);
+  display: flex;
+  align-items: center;
+}
+
+.logo:hover {
+  background-color: rgb(17, 17, 17);
+  color: #000000;
+  border-radius: 1.625rem;
+  transform: scale(1.2);
+}
+
+
+
 
 /* description */
 
 .description {
   height: 30vh;
-  font-size: 2vw;
+  font-size: 1.8vw;
   padding: 1vw 5vw;
   color: #d0d0d0;
   font-family: 'Courier New', Courier, monospace;
@@ -240,6 +255,8 @@ li a:hover {
 
 #videoitem {
   border-radius: 0.5vw;
+  object-fit: contain;
+  width: 30.9vw;
 }
 
 
@@ -277,20 +294,60 @@ li a:hover {
   z-index: 100;
 }
 
-/* popup-image traditional art gallery */
+/* hire page */
 
 .contactform {
   width: 50vw;
   height: 20vh;
-  margin: 10vw 15vh;
-  background-color: #FF9933;
+  margin: auto;
+  margin-top: 20vh;
+  background-color: #1c1c1c;
   text-align: center;
-  padding: 10vw;
-  border-radius: 5vw;
+  border-radius: 1vw;
 }
 
 #Message {
   height: 10vh;
   text-align: start;
   border-radius: 1vw;
+}
+
+/* popup-image traditional art gallery */
+
+.blogpostsmall{
+  position: relative;
+  overflow: hidden;
+  height: 30vw;
+  margin: 15vh 5vw;
+  background-color:  rgba(17, 17, 17, 1);
+  text-align: left;
+  border-radius: 2vh;
+  align-items: center;
+  display: flex;
+}
+
+.blogpostbig{
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  height: 40vw;
+  margin: 15vh 5vw;
+  background-color:  rgba(17, 17, 17, 1);
+  text-align: left;
+  border-radius: 2vh;
+  align-items: center;
+}
+
+.blogvideo{
+  position: absolute;
+  overflow: hidden;
+  margin: 1vw;
+  width: fit-content;
+}
+
+#project_text{
+  text-align: left;
+  margin: 2%;
+  color: #d0d0d0;
+  font-size: 1.5vw;
 }

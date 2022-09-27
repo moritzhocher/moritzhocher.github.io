@@ -12,6 +12,8 @@
 
 <body>
 
+  <!--name of this page in browser-->
+  <title>moritz hocher portfolio</title>
 
   <!--menu bar -->
 
@@ -20,17 +22,87 @@
     <li><a href="traditional-art.html">Traditional Art</a></li>
     <li><a href="personal_projects.html">personal projects</a></li>
     <li><a href="commercial_work.html">commercial work</a></li>
-    <li><a href="index.html">Home</a></li>
+    <li style="float:left"> <a class="logo" href="index.html" ><img src="images/logo.png" style="height:600%; margin-left: 0vw; margin-top: 0vw;"/></a></li>
   </ul>
 
 
+  <!-- project blogposts -->
+  <div class="blogpostbig">
+    <img src="images/Medical Vis/Advanced_Materials_Cover/fianl_cover.png" height="100%" onclick="Fullview(this.src)" alt="" />
+    <div id="project_text">
+      <h1 style="font-size:2vw;">
+        Project: &nbsp Advanced Materials Cover Design
+      </h1>      
+      <p style="font-size:1.5vw;">
+        As part of a publication for Miriam Filippi in Advanced Materials regarding "Microfluidic Tissue Engineering and Bio-Actuation" I was tasked to design a possible cover for the
+        upcoming issue of the Advanced Materials journal. The Rendering you see in the left was in the end accepted as the backcover of the Advanced Materials Vol.34 No 23 from the 9. June 2022.
+      </p> 
+      <p style="color:rgb(77, 77, 77);font-size:1.5vw;">
+        Reference Link: &nbsp <a href="https://onlinelibrary.wiley.com/doi/10.1002/adma.202270176"  target=”_blank” style="color: rgb(77, 77, 77)">wiley-online-library/Adv. Mater. 23/2022</a> 
+      </p> 
+    </div>
+  </div>
 
-  <!-- gallery -->
+  <div class="blogpostsmall">
+    <video id="blogvideo" src="images/Medical Vis/CellFace/long_version_compressed.mp4" height="100%" poster="images/Medical Vis/CellFace/thumbnail.png" loop controls></video>
+    <div id="project_text">
+      <h1 style="font-size:2vw;">
+        Project: &nbsp CellFace
+      </h1>      
+      <p style="font-size:1.5vw;">
+        CellFace is a project run by Technical-University-Munich. At its core stands the developement of a blood analytics device that uses an innovative microfluidics system and state of the art 
+        segmentation algorythms to do rapid high throughput and label free cellcounts. This allows for a detailed blood analysis that can be used for diagnosis of many different deseases or for fundamental research.
+         The visualization aims to visualize especially the parts of the project that cannot be seen by the naked eye.
+      </p> 
+      <p style="color:rgb(77, 77, 77);font-size:1.5vw;">
+        Reference Link: &nbsp <a href="https://wiki.tum.de/display/ldv/CellFace"  target=”_blank” style="color: rgb(77, 77, 77)">wiki.tum.de/ldv/Cellface</a> 
+      </p> 
+    </div>
+  </div>
 
+  <div class="blogpostsmall">
+    <video id="blogvideo" src="images/Medical Vis/IGEM.mp4" height="100%" autoplay loop controls></video>
+    <div id="project_text">
+      <h1 style="font-size:2vw;">
+        Project: &nbsp IGEM Competition Visualization
+      </h1>      
+      <p style="font-size:1.5vw;">
+        IGEM is a world wide competition between universities where each team tries to find a novel advancement in sythetic biology. As part of the team munich of 2019 I designed an animation showcasing our idea of 
+        "exporting" important information of any living cell by genetically modifying it so it secrets samples of its RNA contant in tiny vesicles that can then be analyzed without having to take the cells out of their habitat or 
+        killing them.
+      </p> 
+      <p style="color:rgb(77, 77, 77);font-size:1.5vw;">
+        Reference Link: &nbsp <a href="https://2019.igem.org/Team:Munich/Description"  target=”_blank” style="color: rgb(77, 77, 77)">IGEM-2019/Munich/Description</a> 
+      </p> 
+    </div>
+  </div>
 
+  <div class="blogpostbig">
+    <video id="blogvideo" src="images/Medical Vis/Grant/0001-0500.mkv" height="100%" autoplay loop controls></video>
+    <div id="project_text" style="margin: auto;">
+      <h1 style="font-size:2vw;">
+        Project: &nbsp Grant Application for ETH Zürich
+      </h1>      
+      <p style="width:45vw;">
+        For this project several renders and videos had to be created to showcase the idea of a biohybrid robot that has a complex eye like engineered tissue
+         construct with the ability of neuron regeneration. These Rendering were then used to present a grant application.
+      </p>
+      <p>
+        <img src="images/Medical Vis/Grant/covershot_new_angle_combined_1.png" style="width:45vw; border-radius: 1vw;">
+      </p>
+    </div>
+  </div>
+
+  
+
+  <span id="CloseButton" onclick="CloseFullscreen()">
+  <div id="FullscreenPopup">
+    <img id="FullscreenImg">
+  </div>
+  </span>
 
   <!-- javascript code -->
-
+  <script type="text/javascript" src="javascript/javascript.js"></script>
   <link rel="stylesheet" href="javascript/javascript.js" />
 
 
