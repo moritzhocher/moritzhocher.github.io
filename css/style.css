@@ -111,6 +111,7 @@ li a {
   text-align: center;
   font-size: calc(0.8vw + 0.7vh);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  transform: scale(0.95,1);
   text-transform: uppercase;
   text-decoration: none;
   position: relative;
@@ -155,6 +156,7 @@ li a:hover {
 
 .logo img{ 
   filter: grayscale(100%);
+  transform: scale(1.052,1);
 }
 
 .logo:hover img{ 
