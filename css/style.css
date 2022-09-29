@@ -149,9 +149,16 @@ li a:hover {
 
 .logo:hover {
   background-color: rgb(17, 17, 17);
-  color: #000000;
+  color: #FF9933;
   border-radius: 1.625rem;
-  transform: scale(1.2);
+}
+
+.logo img{ 
+  filter: grayscale(100%);
+}
+
+.logo:hover img{ 
+  filter: grayscale(0%);
 }
 
 
