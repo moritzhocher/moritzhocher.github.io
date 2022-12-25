@@ -415,3 +415,52 @@ li a:hover {
   overflow: hidden;
   border-radius: calc(1.5vh + 1.5vw);
 }
+
+/* grid-gallery */
+
+.image-grid {
+	--gap: 2vw;
+	--num-cols: var(--gridnum);
+	--row-height: 100px;
+
+	box-sizing: border-box;
+	padding: 2vw;
+
+	display: grid;
+	grid-template-columns: repeat(var(--num-cols), 1fr);
+	grid-auto-rows: var(--row-height);
+	gap: var(--gap);
+}
+
+.imgitem{
+  grid-column: span var(--c);
+  grid-row: span var(--r);
+  overflow: hidden;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+  border-radius: 1.5vh;
+  cursor: pointer;
+}
+
+.imgitem img{
+  width: 100%;
+  border-radius: 5px;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.1s linear;
+}
+
+.imgitem:hover img{
+  transform: scale(1.02);
+  overflow: hidden;
+}
+
+
+/* Anything udner 1024px */
+@media screen and (max-width: 1024px) {
+	.image-grid {
+		--num-cols: 2;
+		--row-height: 200px;
+	}
+}

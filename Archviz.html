@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+<body>
+
+  <!--name of this page in browser-->
+  <title>moritz hocher portfolio</title>
+
+  <!--menu bar -->
+
+  <ul>
+    <li><a class="yellow_button" href="hire_me.html">hire me</a></li>
+    <li><a href="traditional-art.html">Traditional Art</a></li>
+    <li><a href="personal_projects.html">personal projects</a></li>
+    <li><a href="commercial_work.html">commercial work</a></li>
+    <li style="float:left"> <a class="logo" href="index.html" ><img src="images/logo_hue_adjust.png" style="height:275%; margin-left: 0vw; margin-top: 0vw;"/>&nbsp home</a></li>
+  </ul>
+
+  <!-- grid gallery -->
+  <div class="image-grid" style="--gridnum:12">
+    <div class="imgitem" style="--c:7;--r:4">
+        <img src="images/Archviz/final_final_final_render.png" onclick="Fullview(this.src)">
+    </div>
+    <div class="imgitem" style="--c:4;--r:6">
+        <img src="images/Archviz/render_3.png" onclick="Fullview(this.src)">
+    </div>
+    <div class="imgitem" style="--c:6;--r:4">
+        <img src="images/Archviz/render_0.png" onclick="Fullview(this.src)">
+    </div>
+    <div class="imgitem" style="--c:8;--r:5">
+        <img src="images/Archviz/render_9_psg.png" onclick="Fullview(this.src)">
+    </div>
+  </div>
+
+    <span id="CloseButton" onclick="CloseFullscreen()">
+        <div id="FullscreenPopup">
+        <img id="FullscreenImg">
+        </div>
+    </span>
+
+
+  <!-- javascript code -->
+  <script type="text/javascript" src="javascript/javascript.js"></script>
+  <link rel="stylesheet" href="javascript/javascript.js" />
+
+
+</body>
+</html>
