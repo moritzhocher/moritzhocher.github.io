@@ -9,3 +9,7 @@ function Fullview(imgsrc){
 function CloseFullscreen(){
   document.getElementById('FullscreenPopup').style.display = 'none';
 }
+
+function Hide(){
+  document.getElementById('hideme').style.display = 'none';
+}

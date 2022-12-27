@@ -174,19 +174,21 @@ li a:hover {
 /* dropdown menu */
 
 .dropdown {
-  float: left;
+  float: right;
   overflow: hidden;
   background-color: rgb(17, 17, 17);
 }
 
 .dropdown .dropbtn {
   background-color: rgb(17, 17, 17);
+  border: none;
+
   display: block;
   color: rgb(146, 146, 146);
-  border: none;
   text-align: center;
   font-size: calc(0.8vw + 0.7vh);
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  transform: scale(0.95,1);
   text-transform: uppercase;
   text-decoration: none;
   position: relative;
@@ -198,7 +200,7 @@ li a:hover {
   position: absolute;
   background-color: rgb(17, 17, 17);
   min-width: 160px;
-  z-index: 1;
+  z-index: 10000;
   background-color: rgb(17, 17, 17);
   border: none;
   font-size: calc(0.8vw + 0.7vh);
@@ -218,7 +220,7 @@ li a:hover {
   padding: 1vh 1vw;
 }
 
-.dropdown-content a:hover {
+.dropdown-content a:hover, .dropdown-content a:active{
   background-color: rgb(3, 3, 3);
   color: #FF9933;
   border-radius: 1.625rem;
@@ -235,6 +237,16 @@ li a:hover {
   border-radius: 1.625rem;
 }
 
+/* switch between mobile and desktop */
+
+#mobile {
+  display: none;
+}
+
+@media screen and (max-width: 720px) {
+  #mobile{display: block;}       
+  #desktop {display: none;}
+} 
 
 
 /* description */
@@ -417,7 +429,7 @@ li a:hover {
   font-size: 20vw;
   color: white;
   cursor: pointer;
-  z-index: 100;
+  z-index: 2;
 }
 
 /* hire page */
