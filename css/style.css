@@ -468,20 +468,88 @@ li a:hover {
 
 /* hire page */
 
+.contact-form-text{
+  margin-bottom: 2vw;
+}
+
+.contact-form{
+  border-radius: 1vw;
+  background-color: #151719;
+  padding: 2vw;
+  margin: 3vw;
+  font-size: 1.3vw;
+  color: #a3a3a3;
+}
+
+input, select, textarea {
+  font-size: 1.2vw;
+  background-color: #404040;
+  width: 100%;
+  padding: 0.7vw;
+  border: 0.15vw solid rgb(42, 42, 42);
+  border-radius: 0.35vw;
+  box-sizing: border-box;
+  margin-top: 0.5vw;
+  margin-bottom: 0.5vw;
+  resize: vertical;
+  color: #a3a3a3;
+}
+
+#submit {
+  font-size: 1.2vw;
+  background-color: rgb(255, 157, 0);
+  color: rgb(43, 43, 43);
+  padding: 0.75vw 1.5vw;
+  margin: 0.5vw;
+  border: none;
+  border-radius: 2vw;
+  cursor: pointer;
+  width: 6vw;
+}
+
+#submit:hover {
+  background-color: #efefef;
+}
+
+
+
 .contactform {
   width: 50vw;
-  height: 10vw;
+  height: 20vw;
   margin: auto;
   margin-top: 20vh;
+  margin-bottom: 10vh;
   background-color: #1c1c1c;
   text-align: center;
   border-radius: 1vw;
 }
 
-#Message {
+.contactform-fields {
+  position: relative;
+}
+
+
+#mail-input {
+  height: 4vh;
+  float: left;
+  margin: 3vw;
+  border-radius: 0.5vw;
+}
+
+#message-input {
+  float: bottom;
+  width: 88%;
   height: 10vh;
-  text-align: start;
-  border-radius: 1vw;
+  margin: 3vw;
+  border-radius: 0.5vw;
+}
+
+#send-input{
+  float: bottom;
+  width: 5vw;
+  height: 2vh;
+  margin: 3vw;
+  border-radius: 0.5vw;
 }
 
 /* commercial work page */
