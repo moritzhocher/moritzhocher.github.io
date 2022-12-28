@@ -30,7 +30,7 @@ body {
 }
 
 ::selection {
-  background: rgb(79, 57, 27);
+  background: rgb(158, 59, 57);
 }
 
 /* video container with header */
@@ -143,7 +143,7 @@ li a:hover {
   color: black;
   padding: 1vh 1vw;
   outline: none;
-  border-radius: 1.625rem;
+  border-radius: 2rem;
   margin-right: 2vw;
   margin-left:2vw;
   position: relative;
@@ -153,6 +153,7 @@ li a:hover {
   background-color: rgb(255, 255, 255);
   color: #000000;
   border-radius: 1.625rem;
+  box-shadow: 0vw 0vw 01vw  #efefef46;;
 }
 
 .logo{
@@ -479,7 +480,7 @@ li a:hover {
   background-color: #151719;
   padding: 2vw;
   margin: 3vw;
-  font-size:  calc(0.6vw + 1.6vh);
+  font-size:  calc(0.5vw + 1.5vh);
   color: #a3a3a3;
 }
 
@@ -489,7 +490,7 @@ input, select, textarea {
   width: 100%;
   padding: 0.6vw;
   border: 0.15vw solid rgb(42, 42, 42);
-  border-radius: 0.35vw;
+  border-radius: 0.5vw;
   box-sizing: border-box;
   margin-top: 1vh;
   margin-bottom: 1vh;
@@ -499,7 +500,7 @@ input, select, textarea {
 
 #submit {
   font-size: calc(0.6vw + 1.5vh);
-  background-color: rgb(255, 157, 0);
+  background-color:#FF9933;
   color: rgb(43, 43, 43);
   padding: 0.75vw 1.5vw;
   margin: 0.5vw;
@@ -511,6 +512,7 @@ input, select, textarea {
 
 #submit:hover {
   background-color: #efefef;
+  box-shadow: 0vw 0vw 01vw  #efefef46;;
 }
 
 
