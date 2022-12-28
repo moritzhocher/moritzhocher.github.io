@@ -470,6 +470,8 @@ li a:hover {
 
 .contact-form-text{
   margin-bottom: 2vw;
+  font-size:  calc(0.7vw + 1.7vh);
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .contact-form{
@@ -511,46 +513,6 @@ input, select, textarea {
   background-color: #efefef;
 }
 
-
-
-.contactform {
-  width: 50vw;
-  height: 20vw;
-  margin: auto;
-  margin-top: 20vh;
-  margin-bottom: 10vh;
-  background-color: #1c1c1c;
-  text-align: center;
-  border-radius: 1vw;
-}
-
-.contactform-fields {
-  position: relative;
-}
-
-
-#mail-input {
-  height: 4vh;
-  float: left;
-  margin: 3vw;
-  border-radius: 0.5vw;
-}
-
-#message-input {
-  float: bottom;
-  width: 88%;
-  height: 10vh;
-  margin: 3vw;
-  border-radius: 0.5vw;
-}
-
-#send-input{
-  float: bottom;
-  width: 5vw;
-  height: 2vh;
-  margin: 3vw;
-  border-radius: 0.5vw;
-}
 
 /* commercial work page */
 
