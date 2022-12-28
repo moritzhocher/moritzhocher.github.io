@@ -477,34 +477,34 @@ li a:hover {
   background-color: #151719;
   padding: 2vw;
   margin: 3vw;
-  font-size: 1.3vw;
+  font-size:  calc(0.6vw + 1.6vh);
   color: #a3a3a3;
 }
 
 input, select, textarea {
-  font-size: 1.2vw;
+  font-size: calc(0.5vw + 1.4vh);
   background-color: #404040;
   width: 100%;
-  padding: 0.7vw;
+  padding: 0.6vw;
   border: 0.15vw solid rgb(42, 42, 42);
   border-radius: 0.35vw;
   box-sizing: border-box;
-  margin-top: 0.5vw;
-  margin-bottom: 0.5vw;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
   resize: vertical;
   color: #a3a3a3;
 }
 
 #submit {
-  font-size: 1.2vw;
+  font-size: calc(0.6vw + 1.5vh);
   background-color: rgb(255, 157, 0);
   color: rgb(43, 43, 43);
   padding: 0.75vw 1.5vw;
   margin: 0.5vw;
   border: none;
-  border-radius: 2vw;
+  border-radius: 5vh;
   cursor: pointer;
-  width: 6vw;
+  width: calc(4vw + 5vh);
 }
 
 #submit:hover {
