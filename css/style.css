@@ -330,7 +330,7 @@ li a:hover {
 }
 .skewcontainer .card {
   flex: 1;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
   height: calc(9.5vh + 38vw);
   position: relative;
   overflow: hidden;
@@ -355,7 +355,7 @@ li a:hover {
   flex-grow: var(--zoomfactor);
 }
 .skewcontainer .card:hover img {
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
   filter: grayscale(0);
 }
 .skewcontainer .card:hover .card__head {
