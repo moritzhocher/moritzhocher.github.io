@@ -617,9 +617,6 @@ input, select, textarea {
   cursor: pointer;
 }
 
-
-
-
 /* Anything udner 1024px */
 @media screen and (max-width: 1024px) {
 	.image-grid {
