@@ -207,8 +207,8 @@
     // Fade in MH Studio title and slogan as left text fades in
     const fadeInTitle = document.querySelector('.bg-parent-title.fade-in-title');
     if (fadeInTitle) {
-      if (moveProgress >= 0.05) {
-        const fadeProgress = Math.min((moveProgress - 0.05) / 0.3, 1);
+      if (moveProgress >= 0) {
+        const fadeProgress = Math.min((moveProgress - 0) / 0.3, 1);
         fadeInTitle.style.opacity = fadeProgress;
       } else {
         fadeInTitle.style.opacity = 0;
@@ -554,6 +554,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const total = cards.length;
   let center = 0;
   let zoomed = false;
+
+  // Expose center and render for mobile controls
+  window._customCarousel = {
+    get center() { return center; },
+    set center(val) { center = val; },
+    render,
+    total,
+  };
 
   function render(prevCenter) {
     const maxRel = Math.floor(total / 2);
@@ -1017,5 +1025,29 @@ document.addEventListener('DOMContentLoaded', function() {
         mobileMenuOverlay.classList.remove('active');
       });
     }
+  }
+}); 
+
+// Mobile-only carousel controls
+document.addEventListener('DOMContentLoaded', function() {
+  var mobilePrevBtn = document.getElementById('mobileCarouselPrev');
+  var mobileNextBtn = document.getElementById('mobileCarouselNext');
+  if (mobilePrevBtn) {
+    mobilePrevBtn.onclick = function() {
+      const carousel = window._customCarousel;
+      if (!carousel) return;
+      const prevCenter = carousel.center;
+      carousel.center = (carousel.center - 1 + carousel.total) % carousel.total;
+      carousel.render(prevCenter);
+    };
+  }
+  if (mobileNextBtn) {
+    mobileNextBtn.onclick = function() {
+      const carousel = window._customCarousel;
+      if (!carousel) return;
+      const prevCenter = carousel.center;
+      carousel.center = (carousel.center + 1) % carousel.total;
+      carousel.render(prevCenter);
+    };
   }
 }); 
