@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commercial Projects - 3D Artist Portfolio</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <header class="navbar" style="background:#101014; display: flex; align-items: center; justify-content: flex-start; position: relative; z-index: 300;">
+    <div class="mobile-menu">
+      <a href="javascript:void(0);" class="icon" id="mobileMenuToggle" aria-label="Open menu" style="margin-right:0;">
+        <span style="display:block;width:20px;height:2px;background:#bfc3c9;margin:4px 0;border-radius:2px;"></span>
+        <span style="display:block;width:20px;height:2px;background:#bfc3c9;margin:4px 0;border-radius:2px;"></span>
+        <span style="display:block;width:20px;height:2px;background:#bfc3c9;margin:4px 0;border-radius:2px;"></span>
+      </a>
+      <div id="mobileLinks" style="display:none;">
+        <a href="commercial.html" class="font-menu">Commercial Projects</a>
+        <a href="personal.html" class="font-menu">Personal Projects</a>
+        <a href="traditional.html" class="font-menu">Traditional Art</a>
+        <a href="hire.html" class="font-menu">Hire Me</a>
+      </div>
+    </div>
+    <div class="logo font-main-title" style="margin-left:12px;"><a href="index.html" style="color:inherit;text-decoration:none;">PORTFOLIO</a></div>
+    <nav class="menu desktop-menu" style="margin-left:auto;">
+      <a href="commercial.html" class="font-menu">Commercial Projects</a>
+      <a href="personal.html" class="font-menu">Personal Projects</a>
+      <a href="traditional.html" class="font-menu">Traditional Art</a>
+      <a href="hire.html" class="font-menu">Hire Me</a>
+    </nav>
+  </header>
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <main style="margin-top: 80px; text-align: center; color: #e5e7eb;">
+    <h1>Commercial Projects</h1>
+    <p>This page will showcase commercial 3D and biomedical projects.</p>
+  </main>
+  <footer class="site-footer">
+    <span class="footer-email font-caption">Email: <a href="mailto:moritz.hocher@googlemail.com">moritz.hocher@googlemail.com</a></span>
+  </footer>
+  <style>
+    .desktop-menu {
+      display: flex;
+      gap: 1.1em;
+      align-items: center;
+    }
+    .mobile-menu {
+      display: none;
+      position: relative;
+      align-items: center;
+      z-index: 301;
+    }
+    .mobile-menu .icon {
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: block;
+      position: relative;
+      right: 0;
+      top: 0;
+      padding: 4px 6px;
+      z-index: 302;
+    }
+    .mobile-menu #mobileLinks {
+      background: #101014;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px 0 rgba(0,0,0,0.22);
+      border: 1.5px solid #181a1b;
+      position: absolute;
+      top: 36px;
+      left: 0;
+      right: auto;
+      width: 45vw;
+      min-width: 0;
+      max-width: none;
+      padding: 6px 0;
+      z-index: 303;
+      flex-direction: column;
+      align-items: stretch;
+      overflow-x: hidden;
+    }
+    .mobile-menu #mobileLinks a {
+      display: block;
+      width: 100%;
+      padding: 8px 10px;
+      text-align: left;
+      border-radius: 0;
+      border: none;
+      background: none;
+      font-size: 0.92rem;
+      color: #bfc3c9;
+    }
+    .mobile-menu #mobileLinks a:hover, .mobile-menu #mobileLinks a:focus, .mobile-menu #mobileLinks a.active {
+      background: #ff7a1a;
+      color: #fff;
+    }
+    .mobile-menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(16,16,20,0.85);
+      z-index: 199;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .mobile-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    @media (max-width: 900px) {
+      .desktop-menu {
+        display: none !important;
+      }
+      .mobile-menu {
+        display: flex !important;
+        align-items: center;
+        order: 1;
+      }
+      .logo {
+        order: 2;
+        margin-left: 12px;
+      }
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      var mobileLinks = document.getElementById('mobileLinks');
+      var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      if (mobileMenuToggle && mobileLinks) {
+        mobileMenuToggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          if (mobileLinks.style.display === 'block') {
+            mobileLinks.style.display = 'none';
+            if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+          } else {
+            mobileLinks.style.display = 'block';
+            if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
+          }
+        });
+        Array.from(mobileLinks.querySelectorAll('a')).forEach(function(link) {
+          link.addEventListener('click', function() {
+            mobileLinks.style.display = 'none';
+            if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
+          });
+        });
+        if (mobileMenuOverlay) {
+          mobileMenuOverlay.addEventListener('click', function() {
+            mobileLinks.style.display = 'none';
+            mobileMenuOverlay.classList.remove('active');
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html> 

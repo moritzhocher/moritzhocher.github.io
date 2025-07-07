@@ -1,136 +1,104 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Artist Portfolio</title>
+  <link rel="stylesheet" href="index.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Share+Tech+Mono&family=Audiowide&family=Exo:wght@400;700;900&family=Rajdhani:wght@400;700&family=Syncopate:wght@400;700&family=Major+Mono+Display&family=Quantico:wght@400;700&family=VT323&family=Unica+One&family=Rubik+Mono+One&display=swap" rel="stylesheet">
 </head>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css" />
-
-
 <body>
-
-  <!--name of this page in browser-->
-  <title>moritz hocher portfolio</title>
-
-  <!--menu bar -->
-
-  <ul id="desktop">
-    <li><a class="yellow_button" href="hire_me.html">hire me</a></li>
-    <li><a href="traditional-art.html">Traditional Art</a></li>
-    <li><a href="personal_projects.html">personal projects</a></li>
-    <li><a href="hard_surface.html">tech</a></li>
-    <li><a href="archviz.html">archviz</a></li>
-    <li><a href="commercial_work.html">biomedical</a></li>
-
-    <li style="float:left"> <a class="logo" href="index.html" ><img src="images/logo_hue_adjust.png" style="height:275%; margin-left: 0vw; margin-top: 0vw;"/>&nbsp home</a></li>
-  </ul>
-
-  <ul id="mobile">
-    <li><a class="yellow_button" href="hire_me.html">hire me</a></li>
-    <li style="float:left"> <a class="logo" href="index.html" ><img src="images/logo_hue_adjust.png" style="height:275%; margin-left: 0vw; margin-top: 0vw;"/>&nbsp home</a></li>
-
-    <div class="dropdown">
-      <button class="dropbtn"> Portfolios &#9660
-        <i class="fa fa-caret-down"></i>
-      </button>
-      <div class="dropdown-content">
-        <a href="commercial_work.html"> biomedical </a>
-        <a href="archviz.html"> architecture </a>
-        <a href="hard_surface.html"> tech </a>
-        <a href="personal_projects.html"> personal projects </a>
-        <a href="traditional-art.html"> traditional art </a>
+  <header class="navbar">
+    <div class="mobile-menu">
+      <a href="javascript:void(0);" class="icon" id="mobileMenuToggle" aria-label="Open menu" style="margin-right:0;">
+        <span style="display:block;width:20px;height:2px;background:#bfc3c9;margin:4px 0;border-radius:2px;"></span>
+        <span style="display:block;width:20px;height:2px;background:#bfc3c9;margin:4px 0;border-radius:2px;"></span>
+        <span style="display:block;width:20px;height:2px;background:#bfc3c9;margin:4px 0;border-radius:2px;"></span>
+      </a>
+      <div class="logo font-main-title"><a href="index.html" style="color:inherit;text-decoration:none;">PORTFOLIO</a></div>
+      <div id="mobileLinks" style="display:none;">
+        <a href="commercial.html" class="font-menu">Commercial Projects</a>
+        <a href="personal.html" class="font-menu">Personal Projects</a>
+        <a href="traditional.html" class="font-menu">Traditional Art</a>
+        <a href="hire.html" class="font-menu">Hire Me</a>
       </div>
-    </div> 
-  </ul>
-
-  <!-- background video banner -->
-
-  <div class="video-container">
-    <video autoplay muted loop>
-        <source src="videos/blackhole.mp4" type="video/mp4" />
-    </video>
-    <div class="caption" style="--case: uppercase">
-      <h1>Moritz Hocher</h1><h2 id="smallshadow">3D Artist | Electrical Engineer</h2>
+    </div>
+    <div class="logo font-main-title desktop-logo"><a href="index.html" style="color:inherit;text-decoration:none;">PORTFOLIO</a></div>
+    <nav class="menu desktop-menu" style="margin-left:auto;">
+      <a href="commercial.html" class="font-menu">Commercial Projects</a>
+      <a href="personal.html" class="font-menu">Personal Projects</a>
+      <a href="traditional.html" class="font-menu">Traditional Art</a>
+      <a href="hire.html" class="font-menu">Hire Me</a>
+    </nav>
+  </header>
+  <canvas id="background-dots-canvas" aria-hidden="true"></canvas>
+  <div class="video-anim-stage">
+    <div class="video-anim-video">
+      <div class="bg-video-outer-parent">
+        <h1 class="bg-parent-title fade-in-title">
+          <span class="bg-parent-main font-main-title">MORITZ HOCHER</span><br>
+          <span class="bg-parent-slogan font-subtitle">- Blending science and art. -</span>
+        </h1>
+        <div class="bg-video-outer">
+          <div class="bg-video-inner">
+            <div class="container-left">
+              <div class="left-text">DEMO<br>REEL<br>2025
+                <div class="left-subtext font-body-small">
+                  <span class="token comment">//</span> A diverse selection of my commercial work in the biomedical field, including visuals created for grant applications, product presentations, and scientific research.
+                </div>
+              </div>
+            </div>
+            <div class="container-right">
+              <div class="video-text-mask-container hide">
+                <video class="video-bg" src="Media/videos/bio_reel_adj.mp4" autoplay loop muted playsinline preload="auto"></video>
+                <div class="video-text-mask">MORITZ<br>HOCHER</div>
+              </div>
+              <video class="right-video grayscale" src="Media/videos/bio_reel_adj.mp4" autoplay loop muted playsinline preload="auto" controls></video>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <!-- line -->
-  <div class="line"></div>
-
-  <!-- description -->
-
-  <div class="description">
-    I am a 3D Artist working mainly with Blender for over 10 years. I specialize in 3D medical 
-    visualizations, but am happy to take on any other type of project as well. Below you will find a
-    selection of previous projects of mine. I am experienced in modeling, photogrammetry, texturing, rigging, animating
-    and compositing.
-    <p style="font-size: 1.5vw; color:rgb(95, 95, 95);">Note: I created this Website from scratch as a Portfolio for my 3D work. This site is currently still under 
-      developement and especially not optimized for mobil 
-      or tablet use.</p>
+  <section class="about-section">
+    <h2 class="about-title">About Me</h2>
+    <div class="about-section-grid">
+      <div class="about-profile-pic">
+        <img src="Media/profile_picture/profile_bw.jpg" alt="Profile picture of Moritz Hocher" />
+      </div>
+      <div class="about-section-content-inner">
+        <p class="font-body"><span class="token comment">//</span> I'm a 3D Artist with over 10 years of experience and a Master's degree in Electrical Engineering, specializing in Neuroengineering. My background in scientific research gives me a unique perspective when it comes to visual storytelling—especially in the medical and scientific fields. I understand the importance of accuracy, clarity, and impact, which allows me to communicate complex ideas effectively through visuals.</p>
+        <p class="font-body"><span class="token comment">//</span> I specialize in 3D medical visualizations but am always open to exploring other types of projects. In addition to the animations featured in my Demo Reel above, I also create still renders and illustrations. My work has been used in research grant applications, patent drawings, journal covers, and more.</p>
+        <p class="font-body"><span class="token comment">//</span> My skillset includes 3D animation, modeling, texturing, compositing, sound design, voiceovers, and traditional 2D illustration. Whether you're looking to bring scientific data to life or need visually compelling content for any purpose, I'm here to help turn your ideas into striking visual experiences.</p>
+      </div>
+    </div>
+  </section>
+  <div class="carousel-wrapper">
+    <section class="carousel-section">
+      <!-- Carousel content (CSS/JS driven) -->
+    </section>
   </div>
-
-  <!-- profile picture -->
-  <!--
-  <div class="profile_picture">
-    <img src="images/profile_picture/profile_bw.jpg">
+  <h2 class="gallery-title">Journal Covers</h2>
+  <div class="custom-carousel-wrapper">
+    <button class="carousel-prev"></button>
+    <div class="custom-carousel-cards">
+      <div class="custom-card font-caption" data-index="0"></div>
+      <div class="custom-card font-caption" data-index="1"></div>
+      <div class="custom-card font-caption" data-index="2"></div>
+      <div class="custom-card font-caption" data-index="3"></div>
+      <div class="custom-card font-caption" data-index="4"></div>
+      <div class="custom-card font-caption" data-index="5"></div>
+      <div class="custom-card font-caption" data-index="6"></div>
+      <div class="custom-card font-caption" data-index="7"></div>
+      <div class="custom-card font-caption" data-index="8"></div>
+      <div class="custom-card font-caption" data-index="9"></div>
+      <div class="custom-card font-caption" data-index="10"></div>
+    </div>
+    <button class="carousel-next"></button>
   </div>
-  -->
-
-  <!-- gallery -->
-
-  <div class="skewcontainer" style="--marg:5vw">
-    <div class="card">
-      <a href="archviz.html">
-        <img src="images/Archviz/castle_hallway.png" style="--up: 0px; --position: 20% 100%;">
-        <div class="card__head">Archviz</div>
-      </a>
-    </div>
-    <div class="card">
-      <a href="commercial_work.html">
-        <img src="images/Medical Vis/adapter_2.jpg" style="--up: 0px; --position: 50% 100%;">
-        <div class="card__head">Biomedical</div>
-      </a>
-    </div>
-    <div class="card">
-      <a href="hard_surface.html">
-        <img src="images/Hard Surface/falcon.png" style="--up: 0px; --position:  65% 50%">
-        <div class="card__head">Hard Surface Modeling</div>
-      </a>
-    </div>
-  </div>
-
-  <div class="skewcontainer" style="--marg:20vw">
-    <div class="card">
-      <a href="personal_projects.html">
-        <img src="images/Fun/Minion/render2.png" style="--up: 0vw; --position: 10% 0%">
-        <div class="card__head">Personal Projects</div>
-      </a>
-    </div>
-    <div class="card">
-      <a href="traditional-art.html">
-        <img src="images/TraditionalArt/medicus.jpg" style="--up: -2.5vw; --position:  55% 0%">
-        <div class="card__head">Traditional Art</div>
-      </a>
-    </div>
-  </div>
-
-  
-  <!-- contact info footer -->
-
-  <div class="footer">
-    <div class="footer-content">
-      contact me at <a href="mailto:moritz.hocher@googlemail.com" style="color: rgb(255, 176, 49); text-decoration: none; padding: 1vw;">moritz.hocher@googlemail.com</a>
-    </div>
-  </div>
-
-
-  <!-- javascript code -->
-  <script type="text/javascript" src="javascript/javascript.js"></script>
-  <link rel="stylesheet" href="javascript/javascript.js" />
-
+  <footer class="site-footer">
+    <span class="footer-email font-caption">Email: <a href="mailto:moritz.hocher@googlemail.com">moritz.hocher@googlemail.com</a></span>
+  </footer>
+  <script src="index.js"></script>
 </body>
-</html>
+</html> 
