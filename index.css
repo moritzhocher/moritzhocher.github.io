@@ -1179,6 +1179,32 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
   background-repeat: repeat;
   position: sticky;
   top: 0;
+}
+
+.title-logo-container {
+  position: absolute;
+  top: calc(50% - 7px);
+  right: -125px;
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.title-logo {
+  height: 120px;
+  width: auto;
+  opacity: 0.9;
+  filter: brightness(1.2) contrast(0.9) saturate(1.0);
+  transition: opacity 0.3s ease;
+}
+
+.title-logo:hover {
+  opacity: 1;
+  filter: brightness(1.5) contrast(0.9) saturate(1.1);
+}
+
+.title-logo:hover {
+  opacity: 1;
+  filter: brightness(1.2) contrast(1.2);
 } 
 
 .bg-parent-title {
@@ -1240,6 +1266,13 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
     border: none !important;
     box-shadow: none !important;
   }
+  .title-logo {
+    height: 70px;
+  }
+  .title-logo-container {
+    right: -30px;
+    top: calc(50% - 23px);
+  }
 } 
 
 @media (max-width: 700px) {
@@ -1294,6 +1327,7 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
     display: block;
     margin-top: 0.01em;
   }
+
   .gallery-title {
     font-size: 1.2rem;
     margin-top: calc(24px + 10vh);
