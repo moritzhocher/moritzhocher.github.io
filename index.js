@@ -8,11 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('Loading screen element:', loadingScreen);
   console.log('Loading video element:', loadingVideo);
   
-  if (loadingScreen) {
+  // Only show loading screen on mobile
+  if (loadingScreen && window.innerWidth <= 700) {
     loadingScreen.style.display = 'flex';
     loadingScreen.style.visibility = 'visible';
     loadingScreen.style.opacity = '1';
-    console.log('Loading screen should be visible');
+    console.log('Loading screen should be visible on mobile');
+  } else if (loadingScreen) {
+    // On desktop, start main video immediately
+    const mainVideo = document.querySelector('.right-video');
+    if (mainVideo) {
+      mainVideo.play();
+    }
+    console.log('Loading screen hidden on desktop, main video started');
   } else {
     console.error('Loading screen element not found!');
   }
