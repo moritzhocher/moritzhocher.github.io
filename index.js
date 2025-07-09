@@ -1,3 +1,52 @@
+// ===== Loading Screen Logic =====
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Loading screen script starting...');
+  
+  const loadingScreen = document.getElementById('loading-screen');
+  const loadingVideo = document.getElementById('loading-video');
+  
+  console.log('Loading screen element:', loadingScreen);
+  console.log('Loading video element:', loadingVideo);
+  
+  if (loadingScreen) {
+    loadingScreen.style.display = 'flex';
+    loadingScreen.style.visibility = 'visible';
+    loadingScreen.style.opacity = '1';
+    console.log('Loading screen should be visible');
+  } else {
+    console.error('Loading screen element not found!');
+  }
+  
+  function hideLoadingScreen() {
+    if (loadingScreen) {
+      console.log('Hiding loading screen');
+      loadingScreen.style.transition = 'opacity 0.3s ease-out';
+      loadingScreen.style.opacity = '0';
+      setTimeout(function() {
+        if (loadingScreen && loadingScreen.parentNode) {
+          loadingScreen.parentNode.removeChild(loadingScreen);
+        }
+        // Start the main video after loading screen is gone
+        const mainVideo = document.querySelector('.right-video');
+        if (mainVideo) {
+          mainVideo.play();
+        }
+      }, 300); // Remove after 0.3s fade animation completes
+    }
+  }
+  
+  // Hide loading screen after 4 seconds (1 second shorter)
+  setTimeout(hideLoadingScreen, 4000);
+  
+  // Also hide when video ends (if video loads and plays)
+  if (loadingVideo) {
+    loadingVideo.addEventListener('ended', function() {
+      console.log('Video ended, hiding loading screen');
+      hideLoadingScreen();
+    });
+  }
+});
+
 // ===== Video Animation Scroll Logic =====
 (function() {
   // Selectors

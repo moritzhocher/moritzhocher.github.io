@@ -169,6 +169,48 @@ body {
   font-family: 'Robo Sapien', sans-serif !important;
 }
 
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 1s ease-out;
+  color: white;
+  font-family: 'Robo Sapien', sans-serif;
+  font-size: 2rem;
+}
+
+.loading-screen.fade-out {
+  opacity: 0 !important;
+  pointer-events: none;
+  visibility: hidden !important;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-video {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.loading-fallback {
+  margin-top: 20px;
+  display: block;
+}
+
 /* Remove animated background styles */
 .animated-bg, .bg, .bg2, .bg3 {
   display: none !important;
