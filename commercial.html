@@ -30,14 +30,550 @@
     </nav>
   </header>
   <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-  <main style="margin-top: 80px; text-align: center; color: #e5e7eb;">
-    <h1>Commercial Projects</h1>
-    <p>This page will showcase commercial 3D and biomedical projects.</p>
+  <main style="margin-top: 80px; color: #e5e7eb;">
+    <h1 style="text-align: center; margin-bottom: 60px; color: #bfc3c9;">Commercial Projects</h1>
+    
+    <!-- Project 1 -->
+    <div class="project-container">
+      <h2 class="project-title">Advanced Materials Cover Design</h2>
+      <div class="project-hero cover-hero">
+        <img src="Media/commercial_work/Advanced_Materials_Cover/fianl_cover.png" alt="Advanced Materials Cover Design Render" class="project-hero-media cover-fit" />
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Advanced Materials Cover Design</h2>
+        <p class="project-client">Client: Advanced Materials Journal</p>
+        <p class="project-description">
+          As part of a publication for Miriam Filippi in Advanced Materials regarding "Microfluidic Tissue Engineering and Bio-Actuation" I was tasked to design a possible cover for the upcoming issue of the Advanced Materials journal. The Rendering was accepted as the backcover of the Advanced Materials Vol.34 No 23 from the 9. June 2022.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">Published in Advanced Materials</span>
+          <a href="https://onlinelibrary.wiley.com/doi/10.1002/adma.202270176" target="_blank" class="reference-link">View Publication</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 1.5 -->
+    <div class="project-container">
+      <h2 class="project-title">Advanced Healthcare Materials Cover</h2>
+      <div class="project-hero cover-hero">
+        <img src="Media/commercial_work/NEM_cover/cover_V2_color_adj_titled.png" alt="Advanced Healthcare Materials Cover Design" class="project-hero-media cover-fit" />
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Advanced Healthcare Materials Cover</h2>
+        <p class="project-client">Client: Neuroengineering Materials Group, Technical University Munich</p>
+        <p class="project-description">
+          Created a cover design for the Neuroengineering Materials Group at TUM, showcasing their groundbreaking research on magnetoelectric nanoparticles for neural stimulation and tissue engineering. The cover visually represents their innovative approach to using magnetic fields to control neural activity through nanoparticle-mediated stimulation, bridging the gap between materials science and neuroengineering. This research has significant implications for developing non-invasive neural interfaces and advanced therapeutic approaches for neurological disorders.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">Published in Advanced Healthcare Materials</span>
+          <a href="https://advanced.onlinelibrary.wiley.com/doi/10.1002/adhm.202470151" target="_blank" class="reference-link">View Publication</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 1.75 -->
+    <div class="project-container">
+      <h2 class="project-title">Nature Cover for ETH Zurich</h2>
+      <div class="project-hero nature-cover-gallery">
+        <img src="Media/commercial_work/Nature_Cover_ETH/hand_thing_pose_cover_5_camraw_grey.png" alt="Soft Robotic Hand Design" class="project-hero-media gallery-image active" data-index="0" />
+        <img src="Media/commercial_work/Nature_Cover_ETH/walker_cover_titled_0.png" alt="Soft Robotic Walker" class="project-hero-media gallery-image" data-index="1" style="display: none;" />
+        <img src="Media/commercial_work/Nature_Cover_ETH/hand_ET_pose_cover_titled_green_0.png" alt="Soft Robotic Hand in Action" class="project-hero-media gallery-image" data-index="2" style="display: none;" />
+        <img src="Media/commercial_work/Nature_Cover_ETH/printer_closeup_cover_titled_0.png" alt="3D Printing Process" class="project-hero-media gallery-image" data-index="3" style="display: none;" />
+        <button class="gallery-nav gallery-prev" onclick="changeGalleryImage(-1, 1.75)">‹</button>
+        <button class="gallery-nav gallery-next" onclick="changeGalleryImage(1, 1.75)">›</button>
+        <div class="gallery-dots">
+          <span class="dot active" onclick="goToGalleryImage(0, 1.75)"></span>
+          <span class="dot" onclick="goToGalleryImage(1, 1.75)"></span>
+          <span class="dot" onclick="goToGalleryImage(2, 1.75)"></span>
+          <span class="dot" onclick="goToGalleryImage(3, 1.75)"></span>
+        </div>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Nature Cover for ETH Zurich</h2>
+        <p class="project-client">Client: Soft Robotics Lab, ETH Zurich</p>
+        <p class="project-description">
+          Created a series of cover designs for the Soft Robotics Lab at ETH Zurich, showcasing their pioneering research on soft robotic human hands and assistive devices. The lab specializes in developing biomimetic soft robotic systems that replicate the dexterity and adaptability of human hands, using advanced materials and innovative manufacturing techniques like 3D printing. Their work focuses on creating robotic hands that can perform complex manipulation tasks with human-like precision, opening new possibilities for prosthetics, rehabilitation, and human-robot interaction.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">Nature Publication</span>
+          <a href="https://srl.ethz.ch/" target="_blank" class="reference-link">View Research Lab</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 1.85 -->
+    <div class="project-container">
+      <h2 class="project-title">Nature Cover Helmholtz Zentrum</h2>
+      <div class="project-hero nature-cover-gallery">
+        <img src="Media/commercial_work/Nature_Cover_Gil/budding_coverpng_3_titled-min.png" alt="Cell Budding Process" class="project-hero-media gallery-image active" data-index="0" />
+        <img src="Media/commercial_work/Nature_Cover_Gil/mowing_the_nucleotides_0_titled-min.png" alt="Nucleotide Processing" class="project-hero-media gallery-image" data-index="1" style="display: none;" />
+        <img src="Media/commercial_work/Nature_Cover_Gil/erasing_the_nucleotides_0_titled-min.png" alt="Nucleotide Editing" class="project-hero-media gallery-image" data-index="2" style="display: none;" />
+        <button class="gallery-nav gallery-prev" onclick="changeGalleryImage(-1, 1.85)">‹</button>
+        <button class="gallery-nav gallery-next" onclick="changeGalleryImage(1, 1.85)">›</button>
+        <div class="gallery-dots">
+          <span class="dot active" onclick="goToGalleryImage(0, 1.85)"></span>
+          <span class="dot" onclick="goToGalleryImage(1, 1.85)"></span>
+          <span class="dot" onclick="goToGalleryImage(2, 1.85)"></span>
+        </div>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Nature Cover Helmholtz Zentrum</h2>
+        <p class="project-client">Client: Experimental Genetics Lab, Helmholtz Zentrum München</p>
+        <p class="project-description">
+          Created a series of cover designs for the Westmeyer Lab at Helmholtz Zentrum München, showcasing their cutting-edge research in experimental genetics and molecular imaging. The lab specializes in developing advanced imaging techniques to study cellular processes and genetic modifications in real-time. Their work focuses on understanding fundamental biological mechanisms through innovative visualization methods, combining molecular biology with state-of-the-art imaging technology to advance our understanding of cellular behavior and genetic regulation.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">Nature Publication</span>
+          <a href="https://www.westmeyerlab.org/" target="_blank" class="reference-link">View Research Lab</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-container">
+      <h2 class="project-title">CellFace Blood Analytics</h2>
+      <div class="project-hero">
+        <video src="Media/commercial_work/CellFace/long_version_compressed.mp4" class="project-hero-media" controls muted playsinline poster="Media/commercial_work/CellFace/thumbnail.png" alt="CellFace Blood Analytics Video"></video>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">CellFace Blood Analytics</h2>
+        <p class="project-client">Client: Technical University Munich</p>
+        <p class="project-description">
+          CellFace is a project run by Technical-University-Munich. At its core stands the development of a blood analytics device that uses an innovative microfluidics system and state of the art segmentation algorithms to do rapid high throughput and label free cell counts. This allows for a detailed blood analysis that can be used for diagnosis of many different diseases or for fundamental research.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">TUM Research Project</span>
+          <a href="https://wiki.tum.de/display/ldv/CellFace" target="_blank" class="reference-link">View Project</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2.5 -->
+    <div class="project-container">
+      <h2 class="project-title">Arm Prosthesis Visualization</h2>
+      <div class="project-hero">
+        <video src="Media/commercial_work/Arm_posthesis/arm_prosthesis_animation.mp4" class="project-hero-media" controls muted playsinline alt="Arm Prosthesis Visualization Video"></video>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Arm Prosthesis Visualization</h2>
+        <p class="project-client">Client: IN-HAND Lab, Technical University Munich</p>
+        <p class="project-description">
+          Working with the IN-HAND (Intelligent Neuroprostheses and Human Robotics) Lab at TUM, I created visualizations for their cutting-edge bionic prostheses research. The IN-HAND Lab focuses on developing advanced prosthetic arms with sophisticated myoelectric control systems and human-centered design principles. Their research combines engineering, biology, and medicine to create safe, effective, and user-friendly robotic technologies that significantly improve the quality of life for patients with upper limb disabilities.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">TUM Research Project</span>
+          <a href="https://www.ce.cit.tum.de/nhcr/home/" target="_blank" class="reference-link">View Research Lab</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-container">
+      <h2 class="project-title">IGEM Competition Visualization</h2>
+      <div class="project-hero">
+        <video src="Media/commercial_work/IGEM/IGEM.mp4" class="project-hero-media" controls muted playsinline poster="Media/commercial_work/IGEM/adapter_2.jpg" alt="IGEM Competition Visualization Video"></video>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">IGEM Competition Visualization</h2>
+        <p class="project-client">Client: IGEM Team Munich 2019</p>
+        <p class="project-description">
+          IGEM is a worldwide competition between universities where each team tries to find a novel advancement in synthetic biology. As part of the team Munich of 2019 I designed an animation showcasing our idea of "exporting" important information of any living cell by genetically modifying it so it secretes samples of its RNA content in tiny vesicles that can then be analyzed without having to take the cells out of their habitat or killing them.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">IGEM Competition</span>
+          <a href="https://2019.igem.org/Team:Munich/Description" target="_blank" class="reference-link">View Project</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-container">
+      <h2 class="project-title">Biohybrid Robot Grant Application</h2>
+      <div class="project-hero">
+        <img src="Media/commercial_work/Grant/covershot_new_angle_combined_1.png" alt="ETH Zürich Biohybrid Robot Render" class="project-hero-media gallery-image active" data-index="0" />
+        <img src="Media/commercial_work/Grant/cells_on_electrode_array_precursors_lightcone.png" alt="Cells on Electrode Array Precursors Lightcone" class="project-hero-media gallery-image" data-index="1" style="display: none;" />
+        <video src="Media/commercial_work/Grant/0001-0500.mp4" class="project-hero-media gallery-image" data-index="2" style="display: none;" controls muted playsinline></video>
+        <button class="gallery-nav gallery-prev" onclick="changeGalleryImage(-1, 3)">‹</button>
+        <button class="gallery-nav gallery-next" onclick="changeGalleryImage(1, 3)">›</button>
+        <div class="gallery-dots">
+          <span class="dot active" onclick="goToGalleryImage(0, 3)"></span>
+          <span class="dot" onclick="goToGalleryImage(1, 3)"></span>
+          <span class="dot" onclick="goToGalleryImage(2, 3)"></span>
+        </div>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Biohybrid Robot Grant Application</h2>
+        <p class="project-client">Client: ETH Zürich</p>
+        <p class="project-description">
+          For this project several renders and videos had to be created to showcase the idea of a biohybrid robot that has a complex eye-like engineered tissue construct with the ability of neuron regeneration. These renderings were then used to present a grant application for cutting-edge biomedical research.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">Grant Application</span>
+          <span class="reference-badge">ETH Zürich Research</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 5 -->
+    <div class="project-container">
+      <h2 class="project-title">Artificial Heart Actuator</h2>
+      <div class="project-hero">
+        <img src="Media/commercial_work/Heart/setup_final.png" alt="Artificial Heart Actuator Setup" class="project-hero-media gallery-image active" data-index="0" />
+        <video src="Media/commercial_work/Heart/final_10reps.mp4" class="project-hero-media gallery-image" data-index="1" style="display: none;" controls muted playsinline></video>
+        <video src="Media/commercial_work/Heart/0001-0309.mp4" class="project-hero-media gallery-image" data-index="2" style="display: none;" controls muted playsinline></video>
+        <button class="gallery-nav gallery-prev" onclick="changeGalleryImage(-1, 5)">‹</button>
+        <button class="gallery-nav gallery-next" onclick="changeGalleryImage(1, 5)">›</button>
+        <div class="gallery-dots">
+          <span class="dot active" onclick="goToGalleryImage(0, 5)"></span>
+          <span class="dot" onclick="goToGalleryImage(1, 5)"></span>
+          <span class="dot" onclick="goToGalleryImage(2, 5)"></span>
+        </div>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Artificial Heart Actuator</h2>
+        <p class="project-client">Client: ETH Zürich</p>
+        <p class="project-description">
+          In this project a novel actuator technology was visualized that could be used as an artificial heart. The visualization demonstrates the complex mechanical and biological interactions required for such a sophisticated medical device, showing both the technical specifications and the potential medical applications.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">Medical Device Research</span>
+          <span class="reference-badge">ETH Zürich</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 6 -->
+    <div class="project-container">
+      <h2 class="project-title">Nanobots Movie Scene</h2>
+      <div class="project-hero">
+        <video src="Media/commercial_work/Nanobots/laundry_hop.mp4" class="project-hero-media" controls muted playsinline alt="Nanobots Movie Scene Video"></video>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Nanobots Movie Scene</h2>
+        <p class="project-client">Client: Film Production</p>
+        <p class="project-description">
+          This short animation of nanobots repairing holes in clothing inside a washing machine was requested by a short film producer for an exhibition. The shot had to seamlessly combine the intro clip of a running washing machine with the 3D animation, creating a believable integration of real footage and computer-generated content.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">Film Production</span>
+          <span class="reference-badge">Exhibition Display</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 7 -->
+    <div class="project-container">
+      <h2 class="project-title">Photogrammetry 3D Models</h2>
+      <div class="project-hero">
+        <video src="Media/commercial_work/Photogrammetry/photogrammetry.mp4" class="project-hero-media" controls muted playsinline alt="Photogrammetry 3D Models Video"></video>
+      </div>
+      <div class="project-content">
+        <h2 class="project-title-desktop">Photogrammetry 3D Models</h2>
+        <p class="project-client">Client: CG-Trader Marketplace</p>
+        <p class="project-description">
+          Photogrammetry uses images taken from all sides of a real world object to create a fully textured high resolution 3D model. I am currently using this procedure to quickly produce realistic 3D models and selling them on CG-Trader, providing high-quality assets for various industries and applications.
+        </p>
+        <div class="project-references">
+          <span class="reference-badge">CG-Trader Marketplace</span>
+          <a href="https://www.cgtrader.com/3d-models/animals/mammal/realistic-animated-and-textured-mouse" target="_blank" class="reference-link">View Store</a>
+        </div>
+      </div>
+    </div>
   </main>
   <footer class="site-footer">
     <span class="footer-email font-caption">Email: <a href="mailto:moritz.hocher@googlemail.com">moritz.hocher@googlemail.com</a></span>
   </footer>
   <style>
+    /* Project Layout Styles */
+    .project-container {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 120px;
+      padding: 0 5vw;
+    }
+
+    .project-title {
+      margin-bottom: 30px;
+    }
+
+    .project-title-desktop {
+      display: none;
+      margin-bottom: 12px;
+    }
+
+    .project-hero {
+      order: 2;
+      flex: 1;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .project-content {
+      order: 3;
+      flex: 1;
+      max-width: 500px;
+    }
+
+    /* Desktop Layout - Hero left, Title + Content right */
+    @media (min-width: 901px) {
+      .project-container {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 60px;
+        justify-content: center;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .project-title {
+        display: none;
+      }
+
+      .project-title-desktop {
+        display: block;
+      }
+
+      .project-hero {
+        order: 1;
+        flex: 1;
+        min-width: 0;
+        max-width: 45vw;
+      }
+
+      .project-content {
+        order: 2;
+        flex: 1;
+        max-width: 500px;
+      }
+    }
+
+    .project-hero {
+      flex: 1;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px;
+      padding: 4px;
+    }
+
+    .project-hero-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px dashed #666;
+      margin: 8px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 8px;
+      width: 100%;
+      height: 100%;
+      padding: 8px;
+    }
+
+    .grid-item {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px dashed #666;
+    }
+
+    .cover-fit {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      background: #23262b;
+      border: 2px dashed #666;
+      border-radius: 12px;
+      margin: 8px;
+    }
+
+    .cover-hero {
+      width: auto;
+      justify-content: center;
+      height: 650px;
+    }
+
+    /* Desktop specific cover sizing for Nature galleries */
+    .nature-cover-gallery {
+      height: 650px;
+    }
+
+    /* Mobile styles for cover */
+    @media (max-width: 900px) {
+      .cover-fit {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+      
+      .cover-hero {
+        width: 100%;
+      }
+    }
+
+    .hero-placeholder {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, #23262b 0%, #181a1b 100%);
+      border: 2px dashed #bfc3c9;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-placeholder::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255, 122, 26, 0.1) 50%, transparent 70%);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .placeholder-text {
+      color: #bfc3c9;
+      font-family: 'Robo Sapien', sans-serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      z-index: 1;
+      position: relative;
+    }
+
+    .project-content {
+      flex: 1;
+      max-width: 500px;
+    }
+
+    .project-title {
+      font-family: 'Robo Sapien', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .project-client {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #ff7a1a;
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .project-description {
+      font-family: 'JetBrains Mono', 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: #bfc3c9;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+
+    .project-references {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .reference-badge {
+      background: #23262b;
+      border: 1px solid #181a1b;
+      color: #bfc3c9;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-style: italic;
+    }
+
+    .reference-link {
+      color: #ff7a1a;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-style: italic;
+      transition: color 0.2s;
+    }
+
+    .reference-link:hover {
+      color: #e5e7eb;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
+      .project-container {
+        gap: 40px;
+        margin-bottom: 80px;
+        padding: 0 6vw;
+      }
+
+      .project-title {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+
+      .project-hero {
+        min-height: 300px;
+        width: 100%;
+      }
+
+      .project-content {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .hero-placeholder {
+        height: 300px;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .project-container {
+        padding: 0 5vw;
+        margin-bottom: 60px;
+      }
+
+      .project-title {
+        font-size: 1.6rem;
+        text-align: center;
+      }
+
+      .hero-placeholder {
+        height: 250px;
+      }
+
+      .placeholder-text {
+        font-size: 1rem;
+      }
+    }
+
+    /* Existing Menu Styles */
     .desktop-menu {
       display: flex;
       gap: 1.1em;
@@ -126,6 +662,77 @@
         margin-left: 12px;
       }
     }
+
+    /* Simple Gallery Styles */
+    .project-hero {
+      position: relative;
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(16, 16, 20, 0.8);
+      color: #bfc3c9;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      border: none;
+      outline: none;
+    }
+
+    .gallery-nav:hover {
+      background: rgba(255, 122, 26, 0.9);
+      color: white;
+    }
+
+    .gallery-prev {
+      left: 20px;
+    }
+
+    .gallery-next {
+      right: 20px;
+    }
+
+    .gallery-dots {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(16, 16, 20, 0.6);
+      border: 1px solid #181a1b;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: #ff7a1a;
+      border-color: #ff7a1a;
+    }
+
+    /* Gallery-specific media styles */
+    .gallery-image {
+      object-fit: contain !important;
+      height: 100% !important;
+      width: auto !important;
+      max-width: 100% !important;
+    }
+
+
   </style>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -157,6 +764,48 @@
         }
       }
     });
+
+    // Gallery Functions
+    function changeGalleryImage(direction, galleryId) {
+      const button = event.target;
+      const container = button.closest('.project-hero');
+      const images = container.querySelectorAll('.gallery-image');
+      const dots = container.querySelectorAll('.dot');
+      const currentIndex = Array.from(images).findIndex(img => img.style.display !== 'none');
+      
+      let newIndex = currentIndex + direction;
+      
+      if (newIndex >= images.length) {
+        newIndex = 0;
+      } else if (newIndex < 0) {
+        newIndex = images.length - 1;
+      }
+      
+      // Hide current image and dot
+      images[currentIndex].style.display = 'none';
+      dots[currentIndex].classList.remove('active');
+      
+      // Show new image and dot
+      images[newIndex].style.display = 'block';
+      dots[newIndex].classList.add('active');
+    }
+
+    function goToGalleryImage(index, galleryId) {
+      const dot = event.target;
+      const container = dot.closest('.project-hero');
+      const images = container.querySelectorAll('.gallery-image');
+      const dots = container.querySelectorAll('.dot');
+      
+      // Hide all images and dots
+      images.forEach((img, i) => {
+        img.style.display = 'none';
+        dots[i].classList.remove('active');
+      });
+      
+      // Show selected image and dot
+      images[index].style.display = 'block';
+      dots[index].classList.add('active');
+    }
   </script>
 </body>
 </html> 
