@@ -30,14 +30,434 @@
     </nav>
   </header>
   <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-  <main style="margin-top: 80px; text-align: center; color: #e5e7eb;">
-    <h1>Personal Projects</h1>
-    <p>This page will showcase personal 3D and art projects.</p>
+  
+  <!-- Fullscreen Modal -->
+  <div class="fullscreen-modal" id="fullscreenModal">
+    <div class="fullscreen-content">
+      <button class="modal-nav modal-prev" onclick="changeModalImage(-1)"></button>
+      <button class="modal-nav modal-next" onclick="changeModalImage(1)"></button>
+      <div id="modalMedia"></div>
+      <div class="modal-dots" id="modalDots"></div>
+    </div>
+  </div>
+  
+  <main style="margin-top: 80px; color: #e5e7eb;">
+    <h1 style="text-align: center; margin-bottom: 60px; color: #bfc3c9;">Personal Projects</h1>
+    
+    <!-- Project Grid -->
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Projects will be dynamically generated here -->
+    </div>
   </main>
+
   <footer class="site-footer">
     <span class="footer-email font-caption">Email: <a href="mailto:moritz.hocher@googlemail.com">moritz.hocher@googlemail.com</a></span>
   </footer>
+
   <style>
+    /* Project Grid Styles */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5vw;
+    }
+
+    .project-card {
+      background: #23262b;
+      border: 2px solid #181a1b;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      border-color: #ff7a1a;
+    }
+
+    .project-image-container {
+      height: 300px;
+      background: #181a1b;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-media.active {
+      display: block;
+    }
+
+    .project-media:not(.active) {
+      display: none;
+    }
+
+    /* YouTube embed specific styles */
+    .project-media[src*="youtube.com"] {
+      object-fit: contain;
+      background: #000;
+      border-radius: 0;
+    }
+
+    /* Fullscreen Modal Styles */
+    .fullscreen-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .fullscreen-modal.active {
+      display: flex;
+    }
+
+    .fullscreen-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+      cursor: default;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fullscreen-image {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+    }
+
+    .fullscreen-video {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+    }
+
+    .fullscreen-iframe {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: 90vw;
+      height: 90vh;
+      border-radius: 8px;
+      cursor: pointer;
+      display: block;
+    }
+
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 122, 26, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .modal-nav:hover {
+      background: rgba(255, 122, 26, 1);
+    }
+
+    .modal-prev {
+      left: -50px;
+    }
+
+    .modal-prev::before {
+      content: '';
+      width: 40px;
+      height: 40px;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='18' stroke='white' stroke-width='2' fill='none'/%3E%3Cpath d='M23 13 L17 20 L23 27' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .modal-next {
+      right: -50px;
+    }
+
+    .modal-next::before {
+      content: '';
+      width: 40px;
+      height: 40px;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='18' stroke='white' stroke-width='2' fill='none'/%3E%3Cpath d='M17 13 L23 20 L17 27' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .modal-dots {
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+
+    .modal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .modal-dot.active {
+      background: #ff7a1a;
+      border-color: #ff7a1a;
+    }
+
+    /* Mobile Modal Styles */
+    @media (max-width: 768px) {
+      .fullscreen-content {
+        max-width: 90vw;
+        max-height: 90vh;
+      }
+
+      .fullscreen-image {
+        max-width: 90vw;
+        max-height: 90vh;
+      }
+
+      .fullscreen-video {
+        max-width: 90vw;
+        max-height: 90vh;
+      }
+
+      .modal-prev {
+        left: 10px;
+      }
+
+      .modal-next {
+        right: 10px;
+      }
+
+      .modal-nav {
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+      }
+
+      .modal-dots {
+        bottom: -20px;
+        gap: 6px;
+      }
+
+      .modal-dot {
+        width: 8px;
+        height: 8px;
+      }
+
+      .fullscreen-iframe {
+        max-width: 90vw;
+        max-height: 90vh;
+        width: 90vw;
+        height: 90vh;
+      }
+    }
+
+    /* Gallery Navigation */
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(16, 16, 20, 0.8);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      border: none;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .gallery-nav:hover {
+      background: rgba(255, 122, 26, 0.9);
+    }
+
+    .gallery-prev {
+      left: 15px;
+    }
+
+    .gallery-prev::before {
+      content: '';
+      width: 24px;
+      height: 24px;
+      background-image: url('Media/button/next_button.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: scaleX(-1) scale(1.4);
+      filter: brightness(0) invert(1) saturate(0) brightness(0.7);
+    }
+
+    .gallery-next {
+      right: 15px;
+    }
+
+    .gallery-next::before {
+      content: '';
+      width: 24px;
+      height: 24px;
+      background-image: url('Media/button/next_button.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: scale(1.4);
+      filter: brightness(0) invert(1) saturate(0) brightness(0.7);
+    }
+
+    @media (min-width: 901px) {
+      .gallery-prev::before {
+        transform: scaleX(-1) scale(1.6);
+      }
+      
+      .gallery-next::before {
+        transform: scale(1.6);
+      }
+    }
+
+    .gallery-dots {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(16, 16, 20, 0.6);
+      border: 1px solid #181a1b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dot.active {
+      background: #ff7a1a;
+      border-color: #ff7a1a;
+    }
+
+    .project-tags {
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background: #181a1b;
+      color: #bfc3c9;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-style: italic;
+      border: 1px solid #2a2d32;
+      transition: all 0.2s ease;
+    }
+
+    .tag:hover {
+      background: #ff7a1a;
+      color: #fff;
+      border-color: #ff7a1a;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 900px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 6vw;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .project-image-container {
+        height: 250px;
+      }
+
+      .project-tags {
+        padding: 15px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .projects-grid {
+        padding: 0 4vw;
+        gap: 25px;
+      }
+
+      .project-image-container {
+        height: 200px;
+      }
+
+      .project-tags {
+        padding: 12px;
+      }
+
+      .gallery-nav {
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+      }
+
+      .gallery-prev {
+        left: 10px;
+      }
+
+      .gallery-next {
+        right: 10px;
+      }
+    }
+
+    /* Existing Menu Styles */
     .desktop-menu {
       display: flex;
       gap: 1.1em;
@@ -127,11 +547,356 @@
       }
     }
   </style>
+
   <script>
+    // Project data structure
+    const projectData = {
+      "Hard_Surface": {
+        "robot_head": {
+          "files": ["side.png", "solid_0.png", "closeup_1.png", "closeup_0.png", "front.png"],
+          "tags": ["Hard Surface", "Modeling", "Materials"]
+        },
+        "headphones": {
+          "files": ["render.png", "render_1.png", "render_2.png", "render_3.png", "render_4.png", "wireframe.png", "solid.png", "tut_ornaments.mov"],
+          "tags": ["Hard Surface", "Modeling", "Materials"]
+        },
+        "speakers": {
+          "files": ["speakers_render_0.png", "speakers_render_1.png", "speakers_render_2.png", "speakers_render_3_wireframe.png", "speakers_render_4_solid.png", "speakers_render_5.png"],
+          "tags": ["Hard Surface", "Modeling", "Materials"]
+        },
+        "multimeter": {
+          "files": ["multimeter_render_0.png", "multimeter_render_1.png", "multimeter_render_2.png", "multimeter_render_3.png"],
+          "tags": ["Hard Surface", "Modeling", "Materials"]
+        },
+        "millenium flacon": {
+          "files": ["render_9_psg.png"],
+          "tags": ["Hard Surface", "Modeling", "Materials"]
+        },
+        "unicycle": {
+          "files": ["unicycle_render_0.png", "unicycle_render_1.png", "unicycle_render_2.png", "unicycle_render_3.png", "unicycle_render_4.png", "unicycle_render_5.png", "unicycle_render_6.png", "unicycle_wire.png", "unicycle_solid.png"],
+          "tags": ["Hard Surface", "Modeling", "Materials"]
+        }
+      },
+      "Character_Art": {
+        "elefant_warrior": {
+          "files": ["render_1.png", "youtube:2azwMusPTu8"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "mimic": {
+          "files": ["thimbnail.png", "motion_blur_2.mp4", "final_resolve_with_sound.mp4"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "monster": {
+          "files": ["thumbnail.png", "norma.mp4", "final_final.mp4", "turntable_solid.mp4", "mist_pass.mp4"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "deadpool": {
+          "files": ["final_snow_wind_blood.mp4", "blood_sim0001-0214.mp4", "deadpool_walk_00001-0170.mp4"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "zombie": {
+          "files": ["zombie.png", "creaturesculpt_turnaround.mp4", "side_view_colse_up_solid.png", "neck_close_up_textured.png", "side_view_textured.png"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "mouth": {
+          "files": ["tongue_closeup_2.png", "tongue_bottom.png", "wireframe.mp4", "cycles_final.mp4", "solid_gums_upper.png", "rigg.png", "teeth_only.png"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "nanobots": {
+          "files": ["thumbnail.png", "laundry_hop.mp4"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "mouse": {
+          "files": ["mouse.png", "mouse_final_with_foliage.mp4"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        },
+        "minion": {
+          "files": ["closeup_1.png", "turntable_minion.mp4", "closeup_3.png", "closeup_2.png", "closeup_0.png", "minions_rig2.png", "render2.png"],
+          "tags": ["Character Design", "Sculpting", "Texturing", "Animation"]
+        }
+      },
+      "Archviz": {
+        "church": {
+          "files": ["church_intro.mp4"],
+          "tags": ["Architecture", "Lighting", "Composition"]
+        },
+        "modern": {
+          "files": ["modern_building.png"],
+          "tags": ["Architecture", "Lighting", "Composition"]
+        },
+        "castle": {
+          "files": ["castle_hallway_full.png"],
+          "tags": ["Architecture", "Lighting", "Composition"]
+        },
+        "interior": {
+          "files": ["forks.png", "chess_set.png", "chess_piece.png", "fruit_wire.png", "set_wire.png", "obst_render_0.jpg"],
+          "tags": ["Architecture", "Lighting", "Composition"]
+        }
+      },
+      "Environment": {
+        "turbine_hall": {
+          "files": ["render_sepia.png", "youtube:tLHD-wThIEI"],
+          "tags": ["Environment", "Composition", "Atmosphere", "Animation", "Speed Sculpt"]
+        },
+        "forest_dragon": {
+          "files": ["dragon_forest_13_boy_col_corr.png", "dragon_winter_1.png"],
+          "tags": ["Environment", "Composition", "Atmosphere"]
+        },
+        "coast_rocks": {
+          "files": ["coast_rocks_render.png", "youtube:zwG2IEAnpH4"],
+          "tags": ["Environment", "Composition", "Atmosphere", "Animation"]
+        },
+        "swamp": {
+          "files": ["render_4_edited.jpg", "youtube:rCHH6p7oGuo"],
+          "tags": ["Environment", "Composition", "Atmosphere", "Animation"]
+        },
+        "riverand": {
+          "files": ["render_2.png", "render_1_edited.jpg", "youtube:aABRpSt1Xz4"],
+          "tags": ["Environment", "Composition", "Atmosphere", "Animation"]
+        }
+      }
+    };
+
+    // Generate project cards
+    function generateProjectCards() {
+      const grid = document.getElementById('projectsGrid');
+      let cardIndex = 0;
+
+      Object.keys(projectData).forEach(category => {
+        Object.keys(projectData[category]).forEach(project => {
+          const projectInfo = projectData[category][project];
+          const card = createProjectCard(category, project, projectInfo, cardIndex);
+          grid.appendChild(card);
+          cardIndex++;
+        });
+      });
+    }
+
+    // Create individual project card
+    function createProjectCard(category, projectName, projectInfo, cardIndex) {
+      const card = document.createElement('div');
+      card.className = 'project-card';
+      
+      const hasMultipleFiles = projectInfo.files.length > 1;
+      
+      card.innerHTML = `
+        <div class="project-image-container">
+          ${projectInfo.files.map((file, index) => {
+            const isVideo = file.endsWith('.mp4') || file.endsWith('.mkv');
+            const isYouTube = file.startsWith('youtube:');
+            const mediaPath = `Media/personal_projects/${category}/${projectName}/${file}`;
+            
+            if (isYouTube) {
+              const videoId = file.split(':')[1];
+              return `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1" class="project-media ${index === 0 ? 'active' : ''}" frameborder="0" allowfullscreen onclick="openFullscreenModal('${category}', '${projectName}', ${cardIndex}, ${index})"></iframe>`;
+            } else if (isVideo) {
+              return `<video src="${mediaPath}" class="project-media ${index === 0 ? 'active' : ''}" controls muted playsinline onclick="openFullscreenModal('${category}', '${projectName}', ${cardIndex}, ${index})"></video>`;
+            } else {
+              return `<img src="${mediaPath}" class="project-media ${index === 0 ? 'active' : ''}" alt="${projectName}" onclick="openFullscreenModal('${category}', '${projectName}', ${cardIndex}, ${index})">`;
+            }
+          }).join('')}
+          
+          ${hasMultipleFiles ? `
+            <button class="gallery-nav gallery-prev" onclick="changeGalleryImage(-1, ${cardIndex})"></button>
+            <button class="gallery-nav gallery-next" onclick="changeGalleryImage(1, ${cardIndex})"></button>
+            <div class="gallery-dots">
+              ${projectInfo.files.map((_, index) => 
+                `<span class="dot ${index === 0 ? 'active' : ''}" onclick="goToGalleryImage(${index}, ${cardIndex})"></span>`
+              ).join('')}
+            </div>
+          ` : ''}
+        </div>
+        <div class="project-tags">
+          ${projectInfo.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+        </div>
+      `;
+      
+      return card;
+    }
+
+    // Gallery navigation functions
+    function changeGalleryImage(direction, cardIndex) {
+      const card = document.querySelectorAll('.project-card')[cardIndex];
+      const images = card.querySelectorAll('.project-media');
+      const dots = card.querySelectorAll('.dot');
+      const currentIndex = Array.from(images).findIndex(img => img.classList.contains('active'));
+      
+      let newIndex = currentIndex + direction;
+      
+      if (newIndex >= images.length) {
+        newIndex = 0;
+      } else if (newIndex < 0) {
+        newIndex = images.length - 1;
+      }
+      
+      // Hide current image and dot
+      images[currentIndex].classList.remove('active');
+      dots[currentIndex].classList.remove('active');
+      
+      // Show new image and dot
+      images[newIndex].classList.add('active');
+      dots[newIndex].classList.add('active');
+    }
+
+    function goToGalleryImage(index, cardIndex) {
+      const card = document.querySelectorAll('.project-card')[cardIndex];
+      const images = card.querySelectorAll('.project-media');
+      const dots = card.querySelectorAll('.dot');
+      
+      // Hide all images and dots
+      images.forEach((img, i) => {
+        img.classList.remove('active');
+        dots[i].classList.remove('active');
+      });
+      
+      // Show selected image and dot
+      images[index].classList.add('active');
+      dots[index].classList.add('active');
+    }
+
+    // Fullscreen Modal Variables
+    let currentModalData = null;
+    let currentModalIndex = 0;
+
+    // Open fullscreen modal
+    function openFullscreenModal(category, projectName, cardIndex, mediaIndex) {
+      const projectInfo = projectData[category][projectName];
+      currentModalData = { category, projectName, projectInfo, cardIndex };
+      currentModalIndex = mediaIndex;
+      
+      const modal = document.getElementById('fullscreenModal');
+      const modalMedia = document.getElementById('modalMedia');
+      const modalDots = document.getElementById('modalDots');
+      
+      // Create modal content
+      const file = projectInfo.files[mediaIndex];
+      const isVideo = file.endsWith('.mp4') || file.endsWith('.mkv');
+      const isYouTube = file.startsWith('youtube:');
+      const mediaPath = `Media/personal_projects/${category}/${projectName}/${file}`;
+      
+      if (isYouTube) {
+        const videoId = file.split(':')[1];
+        modalMedia.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1" class="fullscreen-iframe" frameborder="0" allowfullscreen></iframe>`;
+      } else if (isVideo) {
+        modalMedia.innerHTML = `<video src="${mediaPath}" class="fullscreen-video" controls autoplay></video>`;
+      } else {
+        modalMedia.innerHTML = `<img src="${mediaPath}" class="fullscreen-image" alt="${projectName}">`;
+      }
+      
+      // Create dots if multiple files
+      if (projectInfo.files.length > 1) {
+        modalDots.innerHTML = projectInfo.files.map((_, index) => 
+          `<span class="modal-dot ${index === mediaIndex ? 'active' : ''}" onclick="goToModalImage(${index})"></span>`
+        ).join('');
+        modalDots.style.display = 'flex';
+      } else {
+        modalDots.style.display = 'none';
+      }
+      
+      // Show/hide navigation buttons
+      const prevBtn = document.querySelector('.modal-prev');
+      const nextBtn = document.querySelector('.modal-next');
+      
+      if (projectInfo.files.length > 1) {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+      } else {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      }
+      
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close fullscreen modal
+    function closeFullscreenModal() {
+      const modal = document.getElementById('fullscreenModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      currentModalData = null;
+      currentModalIndex = 0;
+    }
+
+    // Change modal image
+    function changeModalImage(direction) {
+      if (!currentModalData) return;
+      
+      const { projectInfo } = currentModalData;
+      let newIndex = currentModalIndex + direction;
+      
+      if (newIndex >= projectInfo.files.length) {
+        newIndex = 0;
+      } else if (newIndex < 0) {
+        newIndex = projectInfo.files.length - 1;
+      }
+      
+      goToModalImage(newIndex);
+    }
+
+    // Go to specific modal image
+    function goToModalImage(index) {
+      if (!currentModalData) return;
+      
+      const { category, projectName, projectInfo } = currentModalData;
+      currentModalIndex = index;
+      
+      const modalMedia = document.getElementById('modalMedia');
+      const modalDots = document.querySelectorAll('.modal-dot');
+      
+      // Update media
+      const file = projectInfo.files[index];
+      const isVideo = file.endsWith('.mp4') || file.endsWith('.mkv');
+      const isYouTube = file.startsWith('youtube:');
+      const mediaPath = `Media/personal_projects/${category}/${projectName}/${file}`;
+      
+      if (isYouTube) {
+        const videoId = file.split(':')[1];
+        modalMedia.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&autoplay=1" class="fullscreen-iframe" frameborder="0" allowfullscreen></iframe>`;
+      } else if (isVideo) {
+        modalMedia.innerHTML = `<video src="${mediaPath}" class="fullscreen-video" controls autoplay></video>`;
+      } else {
+        modalMedia.innerHTML = `<img src="${mediaPath}" class="fullscreen-image" alt="${projectName}">`;
+      }
+      
+      // Update dots
+      modalDots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    // Close modal when clicking outside content
     document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('fullscreenModal');
+      modal.addEventListener('click', function(e) {
+        // Don't close if clicking on navigation buttons or dots
+        if (e.target.classList.contains('modal-nav') || e.target.classList.contains('modal-dot')) {
+          return;
+        }
+        
+        // Close if clicking on the modal background, content area, or media content
+        if (e.target === modal || e.target.classList.contains('fullscreen-content') || 
+            e.target.classList.contains('fullscreen-image') || e.target.classList.contains('fullscreen-video') || 
+            e.target.classList.contains('fullscreen-iframe')) {
+          closeFullscreenModal();
+        }
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeFullscreenModal();
+        }
+      });
+    });
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu functionality
       var mobileMenuToggle = document.getElementById('mobileMenuToggle');
       var mobileLinks = document.getElementById('mobileLinks');
       var mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      
       if (mobileMenuToggle && mobileLinks) {
         mobileMenuToggle.addEventListener('click', function(e) {
           e.preventDefault();
@@ -143,12 +908,14 @@
             if (mobileMenuOverlay) mobileMenuOverlay.classList.add('active');
           }
         });
+        
         Array.from(mobileLinks.querySelectorAll('a')).forEach(function(link) {
           link.addEventListener('click', function() {
             mobileLinks.style.display = 'none';
             if (mobileMenuOverlay) mobileMenuOverlay.classList.remove('active');
           });
         });
+        
         if (mobileMenuOverlay) {
           mobileMenuOverlay.addEventListener('click', function() {
             mobileLinks.style.display = 'none';
@@ -156,6 +923,9 @@
           });
         }
       }
+
+      // Generate project cards
+      generateProjectCards();
     });
   </script>
 </body>
