@@ -1,3 +1,43 @@
+// ===== Loading Screen Logic =====
+document.addEventListener('DOMContentLoaded', function() {
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  const loadingAnimation = document.querySelector('.loading-animation');
+  const mainVideo = document.querySelector('.right-video');
+  
+  if (loadingAnimation && mainVideo) {
+    // Set up continuous looping for loading animation
+    loadingAnimation.addEventListener('ended', function() {
+      // Simply restart the video for continuous forward looping
+      loadingAnimation.currentTime = 0;
+      loadingAnimation.play();
+    });
+    
+    // Start the loading animation
+    loadingAnimation.play();
+    
+    // Hide loading screen when main video can play
+    mainVideo.addEventListener('canplay', function() {
+      setTimeout(() => {
+        loadingOverlay.classList.add('hidden');
+        // Remove the overlay after fade out
+        setTimeout(() => {
+          loadingOverlay.style.display = 'none';
+        }, 500);
+      }, 1000); // Wait 1 second after video can play
+    });
+    
+    // Fallback: hide loading screen after 10 seconds max
+    setTimeout(() => {
+      if (!loadingOverlay.classList.contains('hidden')) {
+        loadingOverlay.classList.add('hidden');
+        setTimeout(() => {
+          loadingOverlay.style.display = 'none';
+        }, 500);
+      }
+    }, 10000);
+  }
+});
+
 // ===== Video Animation Scroll Logic =====
 (function() {
   // Selectors
