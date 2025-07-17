@@ -1032,6 +1032,8 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
   position: absolute;
   inset: 0;
 }
+
+
 .video-text-mask {
   position: absolute;
   inset: 0;
