@@ -726,15 +726,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // === Assign covers to cards ===
   let coverImages = [
-    'AHM_cover_final_V4_glow_verydark_titled-min.png',
-    'budding_coverpng_3_titled-min.png',
-    'mowing_the_nucleotides_0_titled-min.png',
-    'erasing_the_nucleotides_0_titled-min.png',
-    'printer_closeup_cover_titled_0-min.png',
-    'walker_cover_titled_0-min.png',
-    'hand_thing_pose_cover_5_camraw_grey-min.png',
-    'hand_ET_pose_cover_titled_green_0-min.png',
-    'cover_V2_color_adj_titled-min.png',
+    'AHM_cover_final_V4_glow_verydark_titled-min-min.jpg',
+    'budding_coverpng_3_titled-min-min.jpg',
+    'mowing_the_nucleotides_0_titled-min-min.jpg',
+    'erasing_the_nucleotides_0_titled-min-min.jpg',
+    'printer_closeup_cover_titled_0-min-min.jpg',
+    'walker_cover_titled_0-min-min.jpg',
+    'hand_thing_pose_cover_5_camraw_grey-min-min.jpg',
+    'hand_ET_pose_cover_titled_green_0-min-min.jpg',
+    'cover_V2_color_adj_titled-min-min.jpg',
     'Copy of cover_hand_tenticle_black-min.jpg'
   ];
   // Shuffle covers except for the duplicate
@@ -749,10 +749,10 @@ document.addEventListener('DOMContentLoaded', function () {
   let shuffled = shuffle(coverImages);
   // Place 'budding' at the start and halfway point, fill the rest with shuffled covers (no duplicate)
   let cardCovers = new Array(cards.length);
-  cardCovers[0] = 'budding_coverpng_3_titled-min.png';
-  cardCovers[Math.floor(cards.length / 2)] = 'budding_coverpng_3_titled-min.png';
+  cardCovers[0] = 'budding_coverpng_3_titled-min-min.jpg';
+  cardCovers[Math.floor(cards.length / 2)] = 'budding_coverpng_3_titled-min-min.jpg';
   // Remove one 'budding' from shuffled
-  let shuffledNoBudding = shuffled.filter(name => name !== 'budding_coverpng_3_titled-min.png');
+  let shuffledNoBudding = shuffled.filter(name => name !== 'budding_coverpng_3_titled-min-min.jpg');
   let idx = 0;
   for (let i = 0; i < cardCovers.length; i++) {
     if (!cardCovers[i]) {
@@ -764,7 +764,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const coverName = cardCovers[idx % cardCovers.length];
     if (coverName) {
       const img = document.createElement('img');
-      img.src = `Media/journal_covers/compressed/${coverName}`;
+      img.src = `Media/journal_covers/extreme_compression/${coverName}`;
       img.alt = `Journal Cover ${idx+1}`;
       card.appendChild(img);
     }
