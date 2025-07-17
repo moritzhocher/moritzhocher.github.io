@@ -1051,3 +1051,76 @@ document.addEventListener('DOMContentLoaded', function() {
     };
   }
 }); 
+
+// ===== Segmented Video Loading for Hero Video =====
+(function() {
+  const segments = [
+    'Media/videos/compressed/segment_1.mp4',
+    'Media/videos/compressed/segment_2.mp4',
+    'Media/videos/compressed/segment_3.mp4',
+    'Media/videos/compressed/segment_4.mp4'
+  ];
+  // Main video
+  const video = document.getElementById('right-video-segmented');
+  // Masked background video (if present)
+  const bgVideo = document.getElementById('video-bg-segmented');
+  let current = 0;
+  let preloaded = [];
+
+  function preloadSegment(idx) {
+    if (idx >= segments.length) return;
+    if (preloaded[idx]) return;
+    const v = document.createElement('video');
+    v.src = segments[idx];
+    v.preload = 'auto';
+    preloaded[idx] = v;
+  }
+
+  function playSegment(idx) {
+    if (!video) return;
+    video.src = segments[idx];
+    video.load();
+    video.play();
+    // Preload next
+    preloadSegment(idx + 1);
+  }
+
+  function playBgSegment(idx) {
+    if (!bgVideo) return;
+    bgVideo.src = segments[idx];
+    bgVideo.load();
+    bgVideo.play();
+    // Preload next
+    preloadSegment(idx + 1);
+  }
+
+  if (video) {
+    playSegment(0);
+    video.addEventListener('ended', function() {
+      if (current < segments.length - 1) {
+        current++;
+        playSegment(current);
+        if (bgVideo) playBgSegment(current);
+      } else {
+        // Loop last segment
+        video.currentTime = 0;
+        video.play();
+        if (bgVideo) {
+          bgVideo.currentTime = 0;
+          bgVideo.play();
+        }
+      }
+    });
+  }
+  if (bgVideo) {
+    playBgSegment(0);
+    bgVideo.addEventListener('ended', function() {
+      if (current < segments.length - 1) {
+        // Do nothing, main video will trigger next
+      } else {
+        bgVideo.currentTime = 0;
+        bgVideo.play();
+      }
+    });
+  }
+})(); 
