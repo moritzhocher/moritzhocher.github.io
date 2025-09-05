@@ -330,174 +330,14 @@ document.addEventListener('DOMContentLoaded', function() {
   animate();
 })();
 
-// ===== Journal Gallery Logic =====
-document.addEventListener('DOMContentLoaded', function () {
-  const gallery = document.querySelector('.journal-gallery');
-  const covers = document.querySelectorAll('.journal-cover');
-
-  // --- Drag to scroll ---
-  let isDown = false;
-  let startX, scrollLeft;
-
-  if (gallery) {
-    gallery.addEventListener('mousedown', (e) => {
-      isDown = true;
-      gallery.classList.add('active');
-      document.body.classList.add('journal-cursor-grab');
-      startX = e.pageX - gallery.offsetLeft;
-      scrollLeft = gallery.scrollLeft;
-    });
-    gallery.addEventListener('mouseleave', () => {
-      isDown = false;
-      gallery.classList.remove('active');
-      document.body.classList.remove('journal-cursor-grab');
-    });
-    gallery.addEventListener('mouseup', () => {
-      isDown = false;
-      gallery.classList.remove('active');
-      document.body.classList.remove('journal-cursor-grab');
-    });
-    gallery.addEventListener('mousemove', (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - gallery.offsetLeft;
-      const walk = (x - startX) * 1.2; //scroll-fast
-      gallery.scrollLeft = scrollLeft - walk;
-    });
-    // Touch events
-    gallery.addEventListener('touchstart', (e) => {
-      isDown = true;
-      startX = e.touches[0].pageX - gallery.offsetLeft;
-      scrollLeft = gallery.scrollLeft;
-    });
-    gallery.addEventListener('touchend', () => {
-      isDown = false;
-    });
-    gallery.addEventListener('touchmove', (e) => {
-      if (!isDown) return;
-      const x = e.touches[0].pageX - gallery.offsetLeft;
-      const walk = (x - startX) * 1.2;
-      gallery.scrollLeft = scrollLeft - walk;
-    });
-    // --- Mouse wheel horizontal scroll ---
-    // (Removed for iTunes-style gallery)
-  }
-
-  // --- iTunes-style endless looping carousel ---
-  let selectedIndex = 0;
-  const visibleCount = 5; // Number of cards visible at once (center + 2 on each side)
-  function mod(n, m) { return ((n % m) + m) % m; }
-  function updateCovers() {
-    const N = covers.length;
-    covers.forEach((cover, idx) => {
-      let offset = idx - selectedIndex;
-      // Wrap offsets for endless effect
-      if (offset > N / 2) offset -= N;
-      if (offset < -N / 2) offset += N;
-      if (Math.abs(offset) > Math.floor(visibleCount / 2)) {
-        cover.style.opacity = 0;
-        cover.style.pointerEvents = 'none';
-        cover.style.transform = 'scale(0.8)';
-        cover.style.zIndex = 0;
-      } else if (offset === 0) {
-        cover.style.opacity = 1;
-        cover.style.pointerEvents = '';
-        cover.style.transform = 'translateX(0) scale(1) rotateY(0deg)';
-        cover.style.zIndex = 100;
-      } else {
-        cover.style.opacity = 1;
-        cover.style.pointerEvents = '';
-        const maxTilt = 45;
-        const tilt = -offset * maxTilt;
-        const maxTranslate = 180;
-        const translateX = offset * maxTranslate;
-        const scale = Math.max(0.85, 1 - Math.abs(offset) * 0.12);
-        cover.style.transform = `translateX(${translateX}px) scale(${scale}) rotateY(${tilt}deg)`;
-        cover.style.zIndex = 100 - Math.abs(offset);
-      }
-    });
-  }
-  function centerCover(idx) {
-    const N = covers.length;
-    selectedIndex = mod(idx, N);
-    // Center the selected card
-    const galleryRect = gallery.getBoundingClientRect();
-    const coverRect = covers[selectedIndex].getBoundingClientRect();
-    const galleryCenter = galleryRect.left + galleryRect.width / 2;
-    const coverCenter = coverRect.left + coverRect.width / 2;
-    const scrollDiff = coverCenter - galleryCenter;
-    gallery.scrollBy({ left: scrollDiff, behavior: 'smooth' });
-    updateCovers();
-  }
-  // Initial update
-  if (gallery) {
-    window.addEventListener('resize', updateCovers);
-    setTimeout(() => {
-      updateCovers();
-      centerCover(selectedIndex);
-    }, 100);
-  }
-  // --- Navigation Arrows (center next/prev card, looping) ---
-  function createArrow(direction) {
-    const arrow = document.createElement('button');
-    arrow.className = `carousel-prev carousel-arrow`;
-    if (direction === 'right') arrow.className = `carousel-next carousel-arrow`;
-    // No symbol or innerHTML, just an empty button
-    arrow.setAttribute('aria-label', direction === 'left' ? 'Scroll left' : 'Scroll right');
-    arrow.addEventListener('click', () => {
-      if (direction === 'left') {
-        prevBtn.click();
-      } else {
-        nextBtn.click();
-      }
-    });
-    return arrow;
-  }
-  if (gallery) {
-    const leftArrow = createArrow('left');
-    const rightArrow = createArrow('right');
-    gallery.parentElement.appendChild(leftArrow);
-    gallery.parentElement.appendChild(rightArrow);
-  }
-  // --- Keyboard navigation (left/right arrows, looping) ---
-  document.addEventListener('keydown', function(e) {
-    if (document.activeElement && document.activeElement.classList.contains('journal-cover')) return;
-    if (e.key === 'ArrowLeft') {
-      centerCover(selectedIndex - 1);
-    } else if (e.key === 'ArrowRight') {
-      centerCover(selectedIndex + 1);
-    }
-  });
-  // --- Click to select and center ---
-  covers.forEach((cover, idx) => {
-    cover.addEventListener('click', function () {
-      centerCover(idx);
-    });
-  });
-
-  // --- Custom Cursor (basic) ---
-  covers.forEach((cover) => {
-    cover.addEventListener('mouseenter', () => {
-      gallery.style.cursor = 'pointer';
-    });
-    cover.addEventListener('mouseleave', () => {
-      gallery.style.cursor = 'grab';
-    });
-  });
-  if (gallery) {
-    gallery.addEventListener('mousedown', () => {
-      gallery.style.cursor = 'grabbing';
-    });
-    gallery.addEventListener('mouseup', () => {
-      gallery.style.cursor = 'grab';
-    });
-  }
-
   // ===== Video Mask Color Effect =====
+document.addEventListener('DOMContentLoaded', function() {
   const maskContainer = document.querySelector('.video-mask-container');
   const maskText = document.querySelector('.video-mask-text');
   const grayscaleVideo = document.querySelector('.right-video.grayscale');
   const maskCanvas = document.querySelector('.video-mask-canvas');
+  const stage = document.querySelector('.video-anim-stage');
+  
   // Create a hidden color video for canvas drawing
   let colorVideo = document.createElement('video');
   colorVideo.src = 'Media/videos/bio_reel_adj.mp4';
@@ -544,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const maskTextContainer = document.querySelector('.video-text-mask-container');
   function handleMaskVisibility() {
-    if (!maskTextContainer) return;
+    if (!maskTextContainer || !stage) return;
     const rect = stage.getBoundingClientRect();
     const scrolled = -rect.top;
     const vh = window.innerHeight;
@@ -562,7 +402,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const textMask = maskTextContainer.querySelector('.video-text-mask');
     if (videoBg) videoBg.style.opacity = opacity;
     if (textMask) textMask.style.opacity = opacity;
-    console.log('Mask container opacity:', opacity);
   }
 
   function animateMask() {
@@ -580,22 +419,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ===== Custom JS Carousel Logic =====
 (function() {
-  // === Tweakable parameters (spacing in vw, size in px) ===
-  let CARD_SPACING_CENTER = 10; // vw between card centers (center)
-  let CARD_SPACING_EDGE = 6;   // vw between card centers (edge)
-  let CARD_WIDTH = 300; // px
-  let CARD_HEIGHT = 400; // px
-  let TILT_PER_STEP = 10; // degrees per step from center
-  let SCALE_PER_STEP = 0.1; // scale reduction per step from center
+  // === Constants ===
+  const Z_INDEX = {
+    CENTER: 100,
+    HOVERED: 90,
+    ADJACENT: 80,
+    FAR: 70,
+    HIDDEN: 0
+  };
+  
+  const ANIMATION = {
+    TILT_PER_STEP: 10,
+    SCALE_PER_STEP: 0.1,
+    HOVER_SCALE: 1.08,
+    ZOOM_SCALE: 0.8,
+    MAX_VISIBLE: 5
+  };
+  
+  const SPACING = {
+    CENTER: 10,
+    EDGE: 6,
+    MOBILE_CENTER: 10,
+    MOBILE_EDGE: 8
+  };
+  
+  const SIZES = {
+    DESKTOP: { width: 300, height: 400 },
+    MOBILE: { width: 150, height: 200 }
+  };
 
+  // === State ===
   const cards = Array.from(document.querySelectorAll('.custom-card'));
   const prevBtn = document.querySelector('.carousel-prev');
   const nextBtn = document.querySelector('.carousel-next');
   const total = cards.length;
   let center = 0;
   let zoomed = false;
+  let isAnimating = false;
+  let currentParams = { ...SPACING, ...SIZES.DESKTOP };
 
-  // Expose center and render for mobile controls
+  // Expose API for mobile controls
   window._customCarousel = {
     get center() { return center; },
     set center(val) { center = val; },
@@ -603,19 +466,90 @@ document.addEventListener('DOMContentLoaded', function () {
     total,
   };
 
-  function render(prevCenter) {
+  // Ultra-clean render function for dragging - no complex logic
+  function renderDragClean(centerPos) {
     const maxRel = Math.floor(total / 2);
+    
+    for (let i = 0; i < total; i++) {
+      const card = cards[i];
+      
+      // Calculate relative position from center
+      let rel = i - centerPos;
+      
+      // Handle wrapping - keep it simple
+      if (rel > maxRel) rel -= total;
+      if (rel < -maxRel) rel += total;
+      
+      const absRel = Math.abs(rel);
+      const isCenter = (absRel < 0.3);
+      
+      // Hide cards that are too far away
+      if (absRel > 5) {
+        card.style.opacity = '0';
+        card.style.pointerEvents = 'none';
+        continue;
+      }
+      
+      // Calculate positioning
+      const spacing = currentParams.CENTER - (currentParams.CENTER - currentParams.EDGE) * (absRel / maxRel);
+      const rotateY = rel * ANIMATION.TILT_PER_STEP;
+      const scale = 1 - ANIMATION.SCALE_PER_STEP * absRel;
+      const translateX = rel * spacing;
+      
+      // Simple z-index - center on top, others by distance
+      const zIndex = isCenter ? 100 : Math.max(10, 100 - absRel * 10);
+      
+      // Apply transform
+      card.style.transform = `translate(-50%, -50%) translateX(${translateX}vw) rotateY(${rotateY}deg) scale(${scale})`;
+      card.style.zIndex = zIndex.toString();
+      card.style.opacity = '1';
+      card.style.pointerEvents = '';
+    }
+  }
+
+  // Optimized render function with better performance
+  function render(prevCenter) {
+    // Normalize center to valid range for infinite scrolling
+    while (center < 0) center += total;
+    while (center >= total) center -= total;
+    
+    const maxRel = Math.floor(total / 2);
+    const isMobile = window.innerWidth <= 700;
+    
+    // Batch DOM updates for better performance
+    const updates = [];
+    
     for (let i = 0; i < total; i++) {
       const card = cards[i];
       let rel = (i - center + total) % total;
       if (rel > total / 2) rel -= total;
-      // Detect wrapping: if previous center is defined, and this card's rel jumps from +maxRel to -maxRel or vice versa
+      
+      const absRel = Math.abs(rel);
+      const isCenter = (absRel < 0.5); // Consider center if within 0.5 of the center position
+      const isHovered = card.classList.contains('hovered');
+      
+      // Skip rendering if card is too far away and not visible
+      if (absRel > ANIMATION.MAX_VISIBLE && !isCenter && !zoomed) {
+        updates.push({
+          card,
+          styles: {
+            opacity: '0',
+            pointerEvents: 'none',
+            zIndex: Z_INDEX.HIDDEN
+          },
+          classes: { remove: ['zoomed', 'center-or-hovered'] }
+        });
+        continue;
+      }
+      
+      // Detect wrapping to disable transitions for cards that jump to the other side
       let prevRel = undefined;
       if (typeof prevCenter === 'number') {
         prevRel = (i - prevCenter + total) % total;
         if (prevRel > total / 2) prevRel -= total;
       }
-      // If wrapping, disable transition for this card
+      
+      // If wrapping (jumping from +maxRel to -maxRel or vice versa), disable transition
       if (typeof prevRel === 'number' && Math.abs(rel - prevRel) > 1 && Math.abs(rel) === maxRel) {
         card.style.transition = 'none';
         requestAnimationFrame(() => {
@@ -624,109 +558,183 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         card.style.transition = '';
       }
-      let absRel = Math.abs(rel);
-      const spacing = CARD_SPACING_CENTER - (CARD_SPACING_CENTER - CARD_SPACING_EDGE) * (absRel / maxRel);
-      const rotateY = rel * TILT_PER_STEP;
-      let scale = 1 - SCALE_PER_STEP * absRel;
-      let isCenter = (rel === 0);
-      let isHovered = card.classList.contains('hovered');
-      // Only apply scale/border on hover or zoomed
+      
+      // Calculate positioning
+      const spacing = currentParams.CENTER - (currentParams.CENTER - currentParams.EDGE) * (absRel / maxRel);
+      const rotateY = rel * ANIMATION.TILT_PER_STEP;
+      let scale = 1 - ANIMATION.SCALE_PER_STEP * absRel;
+      
+      // Apply hover effects
       if (isHovered) {
-        scale *= 1.08;
-        card.classList.add('center-or-hovered');
-      } else {
-        card.classList.remove('center-or-hovered');
+        scale *= ANIMATION.HOVER_SCALE;
       }
+      
       const translateX = rel * spacing;
       let transform = `translate(-50%, -50%) translateX(${translateX}vw) rotateY(${rotateY}deg) scale(${scale})`;
+      
+      // Handle zoom state
       if (isCenter && zoomed) {
-        // Dynamically scale so the card reaches 80% of viewport height
-        let targetScale = Math.min(0.8 * window.innerHeight / CARD_HEIGHT, 2);
+        const targetScale = Math.min(ANIMATION.ZOOM_SCALE * window.innerHeight / currentParams.height, 2);
         scale *= targetScale;
-        card.classList.add('zoomed');
-        card.style.zIndex = 100;
-        card.style.opacity = 1;
-        card.style.pointerEvents = '';
-        card.style.height = 'var(--custom-card-height)';
-        card.style.width = 'var(--custom-card-width)';
-        card.style.transform = `translate(-50%, -50%) translateX(${translateX}vw) rotateY(${rotateY}deg) scale(${scale})`;
+        transform = `translate(-50%, -50%) translateX(${translateX}vw) rotateY(${rotateY}deg) scale(${scale})`;
+        
+        updates.push({
+          card,
+          styles: {
+            transform,
+            zIndex: Z_INDEX.CENTER,
+            opacity: '1',
+            pointerEvents: '',
+            width: 'var(--custom-card-width)',
+            height: 'var(--custom-card-height)'
+          },
+          classes: { add: ['zoomed'], remove: ['center-or-hovered'] }
+        });
       } else if (zoomed) {
-        // Hide all non-center cards when zoomed
-        card.style.opacity = 0;
-        card.style.pointerEvents = 'none';
-        card.classList.remove('zoomed');
-        card.style.height = 'var(--custom-card-height)';
-        card.style.width = 'var(--custom-card-width)';
-        card.style.transform = transform;
+        // Hide non-center cards when zoomed
+        updates.push({
+          card,
+          styles: {
+            opacity: '0',
+            pointerEvents: 'none',
+            transform,
+            width: 'var(--custom-card-width)',
+            height: 'var(--custom-card-height)'
+          },
+          classes: { remove: ['zoomed', 'center-or-hovered'] }
+        });
       } else {
-        card.classList.remove('zoomed');
-        card.style.pointerEvents = '';
-        card.style.opacity = absRel > 5 ? 0.25 : 1;
-        card.style.height = 'var(--custom-card-height)';
-        card.style.width = 'var(--custom-card-width)';
-        card.style.transform = transform;
+        // FIXED Z-INDEX LAYERING - Center always on top, others stack properly
+        let zIndex;
+        if (isCenter) {
+          zIndex = Z_INDEX.CENTER; // Center always on top (100)
+        } else {
+          // Progressive z-index based on distance from center (works with decimals)
+          if (absRel <= 1) {
+            zIndex = 80; // Adjacent cards
+          } else if (absRel <= 2) {
+            zIndex = 70; // Second adjacent cards
+          } else if (absRel <= 3) {
+            zIndex = 60; // Third adjacent cards
+          } else if (absRel <= 4) {
+            zIndex = 50; // Fourth adjacent cards
+          } else if (absRel <= 5) {
+            zIndex = 40; // Fifth adjacent cards
+          } else {
+            zIndex = 30; // All other cards
+          }
+          
+          // Hovered cards get small boost but stay in their layer
+          if (isHovered) {
+            zIndex += 5;
+          }
+        }
+        
+        updates.push({
+          card,
+          styles: {
+            transform,
+            zIndex: zIndex.toString(),
+            opacity: absRel > 5 ? '0.25' : '1',
+            pointerEvents: '',
+            width: 'var(--custom-card-width)',
+            height: 'var(--custom-card-height)'
+          },
+          classes: { 
+            add: isHovered ? ['center-or-hovered'] : [],
+            remove: ['zoomed', ...(isHovered ? [] : ['center-or-hovered'])]
+          }
+        });
       }
-      card.style.zIndex = zoomed && !isCenter ? 0 : 10 - absRel;
-      card.style.width = 'var(--custom-card-width)';
-      card.style.height = 'var(--custom-card-height)';
     }
+    
+    // Batch apply all updates
+    updates.forEach(({ card, styles, classes }) => {
+      Object.assign(card.style, styles);
+      if (classes.add) classes.add.forEach(cls => card.classList.add(cls));
+      if (classes.remove) classes.remove.forEach(cls => card.classList.remove(cls));
+    });
   }
 
   function setGalleryParamsForScreen() {
-    if (window.innerWidth <= 700) {
-      CARD_SPACING_CENTER = 10;
-      CARD_SPACING_EDGE = 8;
-      CARD_WIDTH = 150;
-      CARD_HEIGHT = 200;
-      TILT_PER_STEP = 10;
-      SCALE_PER_STEP = 0.1;
+    const isMobile = window.innerWidth <= 700;
+    
+    if (isMobile) {
+      currentParams = {
+        CENTER: SPACING.MOBILE_CENTER,
+        EDGE: SPACING.MOBILE_EDGE,
+        width: SIZES.MOBILE.width,
+        height: SIZES.MOBILE.height
+      };
       if (prevBtn) prevBtn.style.display = 'none';
       if (nextBtn) nextBtn.style.display = 'none';
     } else {
-      CARD_SPACING_CENTER = 10;
-      CARD_SPACING_EDGE = 6;
-      CARD_WIDTH = 300;
-      CARD_HEIGHT = 400;
-      TILT_PER_STEP = 10;
-      SCALE_PER_STEP = 0.1;
+      currentParams = {
+        CENTER: SPACING.CENTER,
+        EDGE: SPACING.EDGE,
+        width: SIZES.DESKTOP.width,
+        height: SIZES.DESKTOP.height
+      };
       if (prevBtn) prevBtn.style.display = '';
       if (nextBtn) nextBtn.style.display = '';
     }
-    document.documentElement.style.setProperty('--custom-card-width', CARD_WIDTH + 'px');
-    document.documentElement.style.setProperty('--custom-card-height', CARD_HEIGHT + 'px');
+    
+    document.documentElement.style.setProperty('--custom-card-width', currentParams.width + 'px');
+    document.documentElement.style.setProperty('--custom-card-height', currentParams.height + 'px');
     render();
   }
   setGalleryParamsForScreen();
   window.addEventListener('resize', setGalleryParamsForScreen);
 
+  // Optimized navigation with throttling
   let prevCenter = 0;
-  prevBtn.addEventListener('click', () => {
+  let lastNavTime = 0;
+  const NAV_THROTTLE = 100; // ms
+  
+  function navigate(direction) {
+    const now = Date.now();
+    if (now - lastNavTime < NAV_THROTTLE) return;
+    lastNavTime = now;
+    
     prevCenter = center;
-    center = (center - 1 + total) % total;
-    render(prevCenter);
-  });
-  nextBtn.addEventListener('click', () => {
-    prevCenter = center;
-    center = (center + 1) % total;
-    render(prevCenter);
-  });
+    center = (center + direction + total) % total;
+    render(prevCenter); // Pass prevCenter for proper wrapping detection
+  }
+  
+  if (prevBtn) prevBtn.addEventListener('click', () => navigate(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => navigate(1));
 
-  let isAnimating = false;
+  // Optimized animation with requestAnimationFrame
   function animateToCenter(targetIdx) {
     if (isAnimating || center === targetIdx) return;
     isAnimating = true;
-    const totalSteps = total;
+    
     const getShortestStep = (from, to) => {
       let diff = (to - from + total) % total;
       if (diff > total / 2) diff -= total;
       return diff;
     };
+    
     let step = getShortestStep(center, targetIdx);
-    function stepAnim() {
+    const startTime = performance.now();
+    const duration = Math.abs(step) * 60; // 60ms per step
+    
+    function stepAnim(currentTime) {
       if (center === targetIdx) {
         isAnimating = false;
         return;
       }
+      
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      if (progress >= 1) {
+        center = targetIdx;
+        render(prevCenter);
+        isAnimating = false;
+        return;
+      }
+      
       const prevCenter = center;
       if (step > 0) {
         center = (center + 1) % total;
@@ -734,38 +742,242 @@ document.addEventListener('DOMContentLoaded', function () {
         center = (center - 1 + total) % total;
       }
       render(prevCenter);
-      step = getShortestStep(center, targetIdx);
+      
       if (center !== targetIdx) {
-        setTimeout(stepAnim, 60); // Adjust speed here (ms per step)
+        requestAnimationFrame(stepAnim);
       } else {
         isAnimating = false;
       }
     }
-    stepAnim();
+    
+    requestAnimationFrame(stepAnim);
   }
-  // Add hover listeners to cards
-  cards.forEach((card, idx) => {
-    card.addEventListener('mouseenter', () => {
+  // Hover handling without debouncing for instant response
+  function handleHoverEnter(card) {
       card.classList.add('hovered');
-      render(center); // re-render to apply scale
-    });
-    card.addEventListener('mouseleave', () => {
+    render(center);
+  }
+  
+  function handleHoverLeave(card) {
       card.classList.remove('hovered');
-      render(center); // re-render to remove scale
-    });
-    // Add click-to-center functionality with animation
-    card.addEventListener('click', () => {
+    render(center);
+  }
+  
+  // Add INSTANT event listeners to cards
+  cards.forEach((card, idx) => {
+    card.addEventListener('mouseenter', () => handleHoverEnter(card));
+    card.addEventListener('mouseleave', () => handleHoverLeave(card));
+    
+    // Click handler for both desktop and mobile
+    card.addEventListener('click', (e) => {
+      // Prevent click during drag
+      if (isDragging) {
+        e.preventDefault();
+        return;
+      }
+      
       if (center !== idx && !isAnimating) {
         animateToCenter(idx);
       } else if (center === idx && !isAnimating) {
+        // Toggle zoom for center card (works on both desktop and mobile)
         zoomed = !zoomed;
         render(center);
+        console.log('Zoom toggled:', zoomed); // Debug log
       }
     });
+    
+    // Add touchstart for mobile click detection
+    let cardTouchStartX = 0;
+    let cardTouchStartY = 0;
+    let cardTouchStartTime = 0;
+    
+    card.addEventListener('touchstart', (e) => {
+      // Only handle if not already dragging
+      if (!isDragging) {
+        card.dataset.touchStarted = 'true';
+        cardTouchStartX = e.touches[0].clientX;
+        cardTouchStartY = e.touches[0].clientY;
+        cardTouchStartTime = Date.now();
+      }
+    });
+    
+    // Add touchend for mobile click detection
+    card.addEventListener('touchend', (e) => {
+      if (card.dataset.touchStarted === 'true' && !isDragging) {
+        const touchEndX = e.changedTouches[0].clientX;
+        const touchEndY = e.changedTouches[0].clientY;
+        const deltaX = touchEndX - cardTouchStartX;
+        const deltaY = touchEndY - cardTouchStartY;
+        const touchDuration = Date.now() - cardTouchStartTime;
+        
+        // Check if it was a tap (small movement, short duration) or a swipe
+        const isTap = Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10 && touchDuration < 300;
+        
+        if (isTap) {
+          e.preventDefault();
+          
+          if (center !== idx && !isAnimating) {
+            animateToCenter(idx);
+          } else if (center === idx && !isAnimating) {
+            // Toggle zoom for center card on mobile (only on tap, not swipe)
+            zoomed = !zoomed;
+            render(center);
+            console.log('Mobile zoom toggled:', zoomed); // Debug log
+          }
+        } else {
+          // It's a swipe - let the main carousel handler deal with it
+          // Don't prevent default, let it bubble up
+        }
+      }
+      card.dataset.touchStarted = 'false';
+    });
   });
+  
+  // COMPLETELY BYPASS EVERYTHING - Direct card manipulation
+  let touchStartX = 0;
+  let isDragging = false;
+  let startCenter = 0;
+  let dragOffset = 0;
+  
+  const carouselContainer = document.querySelector('.custom-carousel-cards');
+  if (carouselContainer) {
+    carouselContainer.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        startCenter = center;
+        dragOffset = 0;
+        isDragging = true;
+        
+        // Kill transitions
+        cards.forEach(card => {
+          card.style.transition = 'none';
+        });
+      }
+    });
+    
+    carouselContainer.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      
+      const deltaX = e.touches[0].clientX - touchStartX;
+      
+      // If in fullscreen mode, don't do continuous dragging
+      if (zoomed) {
+        return;
+      }
+      
+      dragOffset = -deltaX * 0.01; // Sensitivity
+      
+      // Calculate new center
+      const newCenter = startCenter + dragOffset;
+      
+      // Position each card based on distance from new center
+      cards.forEach((card, i) => {
+        let distance = i - newCenter;
+        
+        // Proper wrapping - keep distance in reasonable range
+        while (distance > total / 2) distance -= total;
+        while (distance < -total / 2) distance += total;
+        
+        const absDistance = Math.abs(distance);
+        
+        // Use the same spacing as the normal render function
+        const maxRel = Math.floor(total / 2);
+        const spacing = currentParams.CENTER - (currentParams.CENTER - currentParams.EDGE) * (absDistance / maxRel);
+        const translateX = distance * spacing;
+        const rotateY = distance * ANIMATION.TILT_PER_STEP;
+        const scale = absDistance < 0.5 ? 1 : 1 - absDistance * ANIMATION.SCALE_PER_STEP;
+        
+        // Proper z-index stacking like the normal render function
+        let zIndex;
+        if (absDistance < 0.5) {
+          zIndex = 100; // Center card
+        } else {
+          if (absDistance <= 1) {
+            zIndex = 80; // Adjacent cards
+          } else if (absDistance <= 2) {
+            zIndex = 70; // Second adjacent cards
+          } else if (absDistance <= 3) {
+            zIndex = 60; // Third adjacent cards
+          } else if (absDistance <= 4) {
+            zIndex = 50; // Fourth adjacent cards
+          } else if (absDistance <= 5) {
+            zIndex = 40; // Fifth adjacent cards
+          } else {
+            zIndex = 30; // All other cards
+          }
+        }
+        
+        card.style.transform = `translate(-50%, -50%) translateX(${translateX}vw) rotateY(${rotateY}deg) scale(${scale})`;
+        card.style.zIndex = zIndex.toString();
+        card.style.opacity = '1';
+      });
+    });
+    
+    carouselContainer.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      // Restore transitions
+      cards.forEach(card => {
+        card.style.transition = '';
+      });
+      
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      
+      // If in fullscreen mode, handle next/previous navigation
+      if (zoomed) {
+        if (Math.abs(deltaX) > 30) { // Minimum swipe distance
+          if (deltaX > 0) {
+            // Swipe right = previous
+            center = (center - 1 + total) % total;
+          } else {
+            // Swipe left = next
+            center = (center + 1) % total;
+          }
+          
+          render(center);
+        }
+        return;
+      }
+      
+      // Normal carousel mode - snap to nearest card
+      const finalCenter = startCenter + dragOffset;
+      let nearestCenter = Math.round(finalCenter);
+      
+      // Update center and render normally (render function handles wrapping)
+      center = nearestCenter;
+      console.log('Center updated to:', center, 'Total cards:', total); // Debug log
+      render(center);
+    });
+    
+    carouselContainer.addEventListener('touchcancel', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      // Restore transitions
+      cards.forEach(card => {
+        card.style.transition = '';
+      });
+      
+      // If in fullscreen mode, don't change anything
+      if (zoomed) {
+        return;
+      }
+      
+      // Normal mode - snap to nearest card
+      const finalCenter = startCenter + dragOffset;
+      let nearestCenter = Math.round(finalCenter);
+      
+      // Update center and render normally (render function handles wrapping)
+      center = nearestCenter;
+      console.log('Touch cancel - Center updated to:', center, 'Total cards:', total); // Debug log
+      render(center);
+    });
+  }
 
   // === Assign covers to cards ===
-  let coverImages = [
+  const COVER_IMAGES = [
     'AHM_cover_final_V4_glow_verydark_titled-min-min.jpg',
     'budding_coverpng_3_titled-min-min.jpg',
     'mowing_the_nucleotides_0_titled-min-min.jpg',
@@ -777,194 +989,75 @@ document.addEventListener('DOMContentLoaded', function () {
     'cover_V2_color_adj_titled-min-min.jpg',
     'Copy of cover_hand_tenticle_black-min.jpg'
   ];
-  // Shuffle covers except for the duplicate
-  function shuffle(array) {
-    let arr = array.slice();
+  
+  // Shuffle and assign covers
+  function shuffleArray(array) {
+    const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;
   }
-  let shuffled = shuffle(coverImages);
-  // Place 'budding' at the start and halfway point, fill the rest with shuffled covers (no duplicate)
-  let cardCovers = new Array(cards.length);
+  
+  const shuffledCovers = shuffleArray(COVER_IMAGES);
+  const cardCovers = new Array(cards.length);
+  
+  // Place 'budding' at start and middle, fill rest with shuffled covers
   cardCovers[0] = 'budding_coverpng_3_titled-min-min.jpg';
   cardCovers[Math.floor(cards.length / 2)] = 'budding_coverpng_3_titled-min-min.jpg';
-  // Remove one 'budding' from shuffled
-  let shuffledNoBudding = shuffled.filter(name => name !== 'budding_coverpng_3_titled-min-min.jpg');
-  let idx = 0;
+  
+  const otherCovers = shuffledCovers.filter(name => name !== 'budding_coverpng_3_titled-min-min.jpg');
+  let coverIndex = 0;
+  
   for (let i = 0; i < cardCovers.length; i++) {
     if (!cardCovers[i]) {
-      cardCovers[i] = shuffledNoBudding[idx++];
+      cardCovers[i] = otherCovers[coverIndex % otherCovers.length];
+      coverIndex++;
     }
   }
+  
+  // Assign covers to cards
   cards.forEach((card, idx) => {
     card.innerHTML = '';
     const coverName = cardCovers[idx % cardCovers.length];
     if (coverName) {
       const img = document.createElement('img');
       img.src = `Media/journal_covers/extreme_compression/${coverName}`;
-      img.alt = `Journal Cover ${idx+1}`;
+      img.alt = `Journal Cover ${idx + 1}`;
+      img.loading = 'lazy'; // Performance optimization
       card.appendChild(img);
     }
   });
+  
+  // Initial render
+  render(center);
 })();
 
-// (Coding Torque carousel logic removed) 
-// (Coding Torque carousel logic removed) 
-
-const colorMaskDiv = document.querySelector('.video-color-mask');
-function applyTextMaskToDiv() {
-  if (!colorMaskDiv) return;
-  // Generate SVG mask for the text
-  const text = 'MORITZ\nHOCHER';
-  const fontSize = 180;
-  const fontFamily = 'Orbitron, sans-serif';
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='600'>
-    <rect width='100%' height='100%' fill='white'/>
-    <text x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' fill='black' font-family='${fontFamily}' font-size='${fontSize}' font-weight='900' style='letter-spacing:0.08em;'>${text.replace(/\n/g,'<tspan x="50%" dy="1.1em">')}</text>
-  </svg>`;
-  const svgUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-  colorMaskDiv.style.webkitMaskImage = `url('${svgUrl}')`;
-  colorMaskDiv.style.maskImage = `url('${svgUrl}')`;
-  colorMaskDiv.style.webkitMaskRepeat = 'no-repeat';
-  colorMaskDiv.style.maskRepeat = 'no-repeat';
-  colorMaskDiv.style.webkitMaskPosition = 'center';
-  colorMaskDiv.style.maskPosition = 'center';
-  colorMaskDiv.style.webkitMaskSize = 'contain';
-  colorMaskDiv.style.maskSize = 'contain';
-  // Set the color video as the background using <video> as a background
-  // This is not natively supported, so we use an actual <video> element below
-}
-function syncVideoBackground() {
-  if (!colorMaskDiv) return;
-  let video = colorMaskDiv.querySelector('video');
-  if (!video) {
-    video = document.createElement('video');
-    video.src = 'Media/videos/bio_reel_adj.mp4';
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.playsInline = true;
-    video.preload = 'auto';
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.objectFit = 'cover';
-    video.style.position = 'absolute';
-    video.style.top = '0';
-    video.style.left = '0';
-    video.style.pointerEvents = 'none';
-    colorMaskDiv.appendChild(video);
-  }
-}
-function handleColorMaskFade() {
-  if (!colorMaskDiv) return;
-  const rect = stage.getBoundingClientRect();
-  const scrolled = -rect.top;
-  const vh = window.innerHeight;
-  let opacity = 1;
-  if (scrolled > vh * 0.3) {
-    colorMaskDiv.classList.add('hide');
-    opacity = 0;
-  } else {
-    colorMaskDiv.classList.remove('hide');
-    opacity = 1 - (scrolled / (vh * 0.3));
-    opacity = Math.max(0, Math.min(1, opacity));
-  }
-  colorMaskDiv.style.opacity = opacity;
-}
-window.addEventListener('resize', applyTextMaskToDiv);
-window.addEventListener('DOMContentLoaded', () => {
-  applyTextMaskToDiv();
-  syncVideoBackground();
-  handleColorMaskFade();
-});
-window.addEventListener('scroll', handleColorMaskFade);
-
+// ===== Color Fade Effects =====
 const colorFadeWrapper = document.querySelector('.color-fade-wrapper');
+const stage = document.querySelector('.video-anim-stage');
+
 function handleColorFade() {
-  if (!colorFadeWrapper) return;
+  if (!colorFadeWrapper || !stage) return;
   const rect = stage.getBoundingClientRect();
   const scrolled = -rect.top;
   const vh = window.innerHeight;
-  let opacity = 1;
-  if (scrolled > vh * 0.3) {
-    opacity = 0;
-  } else {
-    opacity = 1 - (scrolled / (vh * 0.3));
-    opacity = Math.max(0, Math.min(1, opacity));
-  }
+  const opacity = scrolled > vh * 0.3 ? 0 : Math.max(0, 1 - (scrolled / (vh * 0.3)));
   colorFadeWrapper.style.opacity = opacity;
 }
+
 window.addEventListener('scroll', handleColorFade);
 window.addEventListener('DOMContentLoaded', handleColorFade);
-handleColorFade();
 
-const testFadeDiv = document.querySelector('.test-fade');
-function handleTestFade() {
-  if (!testFadeDiv) return;
-  const rect = stage.getBoundingClientRect();
-  const scrolled = -rect.top;
-  const vh = window.innerHeight;
-  let opacity = 1;
-  if (scrolled > vh * 0.3) {
-    opacity = 0;
-  } else {
-    opacity = 1 - (scrolled / (vh * 0.3));
-    opacity = Math.max(0, Math.min(1, opacity));
-  }
-  console.log('handleTestFade:', { scrolled, vh, opacity });
-  testFadeDiv.style.opacity = opacity;
-}
-window.addEventListener('scroll', handleTestFade);
-window.addEventListener('DOMContentLoaded', handleTestFade);
-handleTestFade();
-
+// ===== Utility Functions =====
 document.addEventListener('DOMContentLoaded', function() {
-  var maskBtn = document.getElementById('toggle-mask-btn');
-  var grayBtn = document.getElementById('toggle-grayscale-btn');
-  if (maskBtn) {
-    maskBtn.onclick = function() {
-      const mask = document.querySelector('.video-text-mask-container');
-      if (mask) mask.style.display = (mask.style.display === 'none' ? '' : 'none');
-    };
-  }
-  if (grayBtn) {
-    grayBtn.onclick = function() {
-      const gray = document.querySelector('.right-video.grayscale');
-      if (gray) gray.style.display = (gray.style.display === 'none' ? '' : 'none');
-    };
-  }
-});
-
-function fadeMaskContainerOnScroll() {
-  const maskTextContainer = document.querySelector('.video-text-mask-container');
-  if (!maskTextContainer) return;
-  if (maskTextContainer.classList.contains('hide')) return;
-  const stage = document.querySelector('.video-anim-stage');
-  const rect = stage.getBoundingClientRect();
-  const scrolled = -rect.top;
-  const vh = window.innerHeight;
-  let opacity = 1;
-  if (scrolled > vh * 0.3) {
-    opacity = 0;
-  } else {
-    opacity = 1 - (scrolled / (vh * 0.3));
-    opacity = Math.max(0, Math.min(1, opacity));
-  }
-  maskTextContainer.style.opacity = opacity;
-}
-window.addEventListener('scroll', fadeMaskContainerOnScroll);
-window.addEventListener('DOMContentLoaded', fadeMaskContainerOnScroll);
-fadeMaskContainerOnScroll(); 
-
-(function() {
+  // Remove unused canvas if it exists
   const canvas = document.getElementById('background-dots-canvas');
   if (canvas) {
-    canvas.parentNode.removeChild(canvas);
+    canvas.remove();
   }
-})(); 
+}); 
 
 // Navbar background fade on scroll
 (function() {
@@ -1068,27 +1161,31 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 }); 
 
-// Mobile-only carousel controls
+// ===== Mobile Carousel Controls =====
 document.addEventListener('DOMContentLoaded', function() {
-  var mobilePrevBtn = document.getElementById('mobileCarouselPrev');
-  var mobileNextBtn = document.getElementById('mobileCarouselNext');
+  const mobilePrevBtn = document.getElementById('mobileCarouselPrev');
+  const mobileNextBtn = document.getElementById('mobileCarouselNext');
+  
   if (mobilePrevBtn) {
-    mobilePrevBtn.onclick = function() {
+    mobilePrevBtn.addEventListener('click', () => {
       const carousel = window._customCarousel;
-      if (!carousel) return;
-      const prevCenter = carousel.center;
-      carousel.center = (carousel.center - 1 + carousel.total) % carousel.total;
-      carousel.render(prevCenter);
-    };
+      if (carousel) {
+        const prevCenter = carousel.center;
+        carousel.center = (carousel.center - 1 + carousel.total) % carousel.total;
+        carousel.render(prevCenter);
+      }
+    });
   }
+  
   if (mobileNextBtn) {
-    mobileNextBtn.onclick = function() {
+    mobileNextBtn.addEventListener('click', () => {
       const carousel = window._customCarousel;
-      if (!carousel) return;
-      const prevCenter = carousel.center;
-      carousel.center = (carousel.center + 1) % carousel.total;
-      carousel.render(prevCenter);
-    };
+      if (carousel) {
+        const prevCenter = carousel.center;
+        carousel.center = (carousel.center + 1) % carousel.total;
+        carousel.render(prevCenter);
+      }
+    });
   }
 }); 
 

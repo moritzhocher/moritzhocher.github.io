@@ -583,128 +583,6 @@ html {
 }
 
 /* ===== Journal Gallery Section ===== */
-.journal-gallery-section {
-  width: 100vw;
-  background: #191a1c;
-  padding: 5vh 0 8vh 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  position: relative;
-  overflow-x: hidden;
-  z-index: 10;
-}
-
-.journal-gallery {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 2vw;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 2vh 8vw;
-  width: 100vw;
-  position: relative;
-  perspective: 1200px;
-  -webkit-overflow-scrolling: touch;
-}
-
-.journal-cover {
-  flex: 0 0 420px;
-  height: 600px;
-  background: #23262b;
-  /* border-radius: 18px; */
-  border: 3px solid #ff7a1a;
-  margin-left: -180px;
-  margin-right: -180px;
-  position: relative;
-  transition: transform 0.35s cubic-bezier(.4,2,.6,1), z-index 0.25s;
-  cursor: grab;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  z-index: 1;
-}
-.journal-cover:first-child {
-  margin-left: 0;
-}
-.journal-cover:last-child {
-  margin-right: 0;
-}
-.journal-cover:focus,
-.journal-cover:hover,
-.journal-cover.enlarged {
-  z-index: 10;
-  transform: scale(1.08) translateY(-8px);
-}
-
-/* Navigation Arrows */
-.journal-gallery-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  background: rgba(24,26,27,0.92);
-  border-radius: 50%;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 20;
-  transition: background 0.18s, box-shadow 0.18s;
-  color: #ff7a1a;
-  font-size: 2rem;
-  user-select: none;
-  border: none;
-  outline: none;
-}
-.journal-gallery-arrow:hover {
-  background: #23262b;
-  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.22);
-}
-.journal-gallery-arrow.left {
-  left: 2vw;
-}
-.journal-gallery-arrow.right {
-  right: 2vw;
-}
-
-/* Custom Cursor (basic placeholder, will be enhanced in JS) */
-body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
-  cursor: grabbing !important;
-}
-.journal-gallery {
-  cursor: grab;
-}
-
-/* Responsive */
-@media (max-width: 700px) {
-  .journal-gallery {
-    gap: 4vw;
-    padding: 2vh 2vw;
-  }
-  .journal-cover {
-    flex: 0 0 120px;
-    height: 180px;
-  }
-  .journal-gallery-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 1.5rem;
-  }
-  .bg-video-outer {
-    width: 100vw !important;
-    margin: 0 !important;
-    min-width: 100vw !important;
-    max-width: 100vw !important;
-    flex: none !important;
-  }
-}
-
-/* Remove pure CSS carousel styles */
 
 /* --- Custom JS Carousel Styles --- */
 .custom-carousel-wrapper {
@@ -714,9 +592,9 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 60px 0 0 0;
+  margin: 100px 0 0 0;
   z-index: 10;
-  margin-bottom: 160px;
+  margin-bottom: 200px;
 }
 .custom-carousel-cards {
   position: relative;
@@ -736,7 +614,7 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
   height: var(--custom-card-height);
   transform: translate(-50%, -50%);
   box-shadow: 0 8px 32px 0 rgba(0,0,0,0.22), 0 2px 12px 0 rgba(0,0,0,0.13);
-  transition: transform 0.5s cubic-bezier(.4,2,.6,1), opacity 0.4s, border 0.25s, width 0.5s, height 0.5s, max-height 0.5s;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 1.2), opacity 0.3s, border 0.25s, width 0.4s, height 0.4s, max-height 0.4s;
   opacity: 0;
   z-index: 1;
   border-radius: 4px;
@@ -1379,6 +1257,8 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
   }
   .custom-carousel-wrapper {
     min-height: 180px;
+    margin-top: 160px;
+    margin-bottom: 160px !important;
   }
   .custom-carousel-cards {
     height: 90px;
@@ -1698,7 +1578,7 @@ body.journal-cursor-grab .journal-gallery, .journal-gallery:active {
 
 @media (max-width: 700px) {
   .custom-carousel-wrapper {
-    margin-bottom: 0 !important;
+    margin-bottom: 160px !important;
   }
   .mobile-carousel-controls {
     margin-top: 40px !important;
