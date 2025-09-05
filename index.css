@@ -815,8 +815,14 @@ html {
   }
   .about-title {
     font-size: 1.2rem;
-    margin: 24px 0 10px 0;
+    margin: 30px 0 20px 0;
     text-align: center;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #e5e7eb !important;
+    z-index: 100 !important;
+    position: relative;
   }
   .about-section-grid {
     display: flex;
@@ -828,9 +834,9 @@ html {
   .about-profile-pic {
     width: 144px;
     height: 144px;
-    margin: 0 0 12px 0;
+    margin: 20px 0 12px 0;
     position: relative;
-    z-index: 10;
+    z-index: 1;
   }
   .about-section-content-inner {
     width: 100%;
