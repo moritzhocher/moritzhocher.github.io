@@ -33,7 +33,7 @@
   <main style="margin-top: 80px; text-align: center; color: #e5e7eb; flex:1 0 auto;">
     <h1 style="color:#bfc3c9;">Hire Me</h1>
     <p style="color:#bfc3c9;">If you are interested in working together,<br> please contact me at <a href="mailto:moritz.hocher@googlemail.com" style="color:#fff;">moritz.hocher@googlemail.com</a>.</p>
-    <form class="contact-form" action="mailto:moritz.hocher@googlemail.com" method="POST" enctype="text/plain" style="max-width:400px;margin:32px auto 0 auto;text-align:left;background:#101014;border:1.5px solid #181a1b;padding:24px 18px;border-radius:12px;box-shadow:none;">
+    <form class="contact-form" action="https://formspree.io/f/mwkjejel" method="POST" style="max-width:400px;margin:32px auto 0 auto;text-align:left;background:#101014;border:1.5px solid #181a1b;padding:24px 18px;border-radius:12px;box-shadow:none;">
       <label for="name" style="display:block;margin-bottom:8px;color:#bfc3c9;font-family:'Robo Sapien',sans-serif;font-size:1rem;">Name</label>
       <input type="text" id="name" name="name" required style="width:100%;max-width:100%;box-sizing:border-box;padding:8px 10px;margin-bottom:16px;border-radius:6px;border:1.5px solid #23262b;background:#23262b;color:#e5e7eb;font-family:'Robo Sapien',sans-serif;font-size:1rem;">
       <label for="email" style="display:block;margin-bottom:8px;color:#bfc3c9;font-family:'Robo Sapien',sans-serif;font-size:1rem;">Email</label>
@@ -165,7 +165,50 @@
           });
         }
       }
+
+      // Contact form handling
+      var contactForm = document.querySelector('.contact-form');
+      var submitButton = contactForm.querySelector('button[type="submit"]');
+      var originalButtonText = submitButton.textContent;
+
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var formData = new FormData(this);
+
+        // Show loading state
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+        submitButton.style.background = '#666';
+
+        // Submit to Formspree
+        fetch(this.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            alert('Message sent successfully! I\'ll get back to you soon.');
+            this.reset();
+          } else {
+            throw new Error('Network response was not ok');
+          }
+        })
+        .catch(error => {
+          alert('Sorry, there was an error sending your message. Please try again or email me directly.');
+          console.error('Error:', error);
+        })
+        .finally(() => {
+          // Reset button state
+          submitButton.textContent = originalButtonText;
+          submitButton.disabled = false;
+          submitButton.style.background = '#ff7a1a';
+        });
+      });
     });
   </script>
 </body>
-</html> 
+</html>
