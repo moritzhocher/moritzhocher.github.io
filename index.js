@@ -883,7 +883,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      dragOffset = -deltaX * 0.01; // Sensitivity
+      dragOffset = -deltaX * 0.02; // Sensitivity
       
       // Calculate new center
       const newCenter = startCenter + dragOffset;
