@@ -629,8 +629,8 @@ html {
 }
 
 .custom-carousel-wrapper.zoomed {
-  margin-top: 150px;
-  margin-bottom: 80px;
+  margin-top: 20vh;
+  margin-bottom: 15vh;
 }
 .custom-carousel-cards {
   position: relative;
@@ -708,10 +708,10 @@ html {
   position: relative;
 }
 .carousel-prev {
-  left: -48px;
+  left: -5vw;
 }
 .carousel-next {
-  right: -48px;
+  right: -5vw;
 }
 .carousel-prev::before, .carousel-next::before {
   content: none;
