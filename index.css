@@ -7,6 +7,36 @@
   font-display: swap;
 }
 
+/* ====== Text Selection Prevention and Styling ====== */
+/* Prevent text selection on interactive elements */
+.custom-card,
+.carousel-prev,
+.carousel-next,
+.mobile-carousel-controls .carousel-prev,
+.mobile-carousel-controls .carousel-next,
+.menu a,
+.hire-button,
+.mobile-menu .icon,
+.mobile-menu #mobileLinks a {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Change text selection color to orange */
+::selection {
+  background-color: #ff7a1a;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #ff7a1a;
+  color: #ffffff;
+}
+
 /* ====== Font Utility Classes ====== */
 
 /* Main page title (e.g. MORITZ HOCHER) */
@@ -592,9 +622,15 @@ html {
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 100px 0 0 0;
+  margin: 60px 0 0 0;
   z-index: 10;
-  margin-bottom: 200px;
+  margin-bottom: 0;
+  transition: margin-top 0.3s linear, margin-bottom 0.3s linear;
+}
+
+.custom-carousel-wrapper.zoomed {
+  margin-top: 150px;
+  margin-bottom: 80px;
 }
 .custom-carousel-cards {
   position: relative;
@@ -1324,8 +1360,14 @@ html {
   }
   .custom-carousel-wrapper {
     min-height: 180px;
-    margin-top: 160px;
-    margin-bottom: 160px !important;
+    margin-top: 100px;
+    margin-bottom: 0 !important;
+    transition: margin-top 0.3s linear, margin-bottom 0.3s linear;
+  }
+  
+  .custom-carousel-wrapper.zoomed {
+    margin-top: 200px;
+    margin-bottom: 200px !important;
   }
   .custom-carousel-cards {
     height: 90px;
@@ -1645,7 +1687,7 @@ html {
 
 @media (max-width: 700px) {
   .custom-carousel-wrapper {
-    margin-bottom: 160px !important;
+    margin-bottom: 0 !important;
   }
   .mobile-carousel-controls {
     margin-top: 40px !important;

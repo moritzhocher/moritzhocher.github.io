@@ -445,18 +445,30 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const SIZES = {
     DESKTOP: { width: 300, height: 400 },
-    MOBILE: { width: 150, height: 200 }
+    MOBILE: { width: 207, height: 275 }
   };
 
   // === State ===
   const cards = Array.from(document.querySelectorAll('.custom-card'));
   const prevBtn = document.querySelector('.carousel-prev');
   const nextBtn = document.querySelector('.carousel-next');
+  const carouselWrapper = document.querySelector('.custom-carousel-wrapper');
   const total = cards.length;
   let center = 0;
   let zoomed = false;
   let isAnimating = false;
   let currentParams = { ...SPACING, ...SIZES.DESKTOP };
+
+  // Function to update zoomed class on wrapper
+  function updateZoomedClass() {
+    if (carouselWrapper) {
+      if (zoomed) {
+        carouselWrapper.classList.add('zoomed');
+      } else {
+        carouselWrapper.classList.remove('zoomed');
+      }
+    }
+  }
 
   // Expose API for mobile controls
   window._customCarousel = {
@@ -575,7 +587,10 @@ document.addEventListener('DOMContentLoaded', function() {
       // Handle zoom state
       if (isCenter && zoomed) {
         const targetScale = Math.min(ANIMATION.ZOOM_SCALE * window.innerHeight / currentParams.height, 2);
-        scale *= targetScale;
+        // On mobile, make zoom scale 0.8x of what it was before
+        const isMobile = window.innerWidth <= 700;
+        const finalScale = isMobile ? targetScale * 0.8 : targetScale;
+        scale *= finalScale;
         transform = `translate(-50%, -50%) translateX(${translateX}vw) rotateY(${rotateY}deg) scale(${scale})`;
         
         updates.push({
@@ -781,6 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (center === idx && !isAnimating) {
         // Toggle zoom for center card (works on both desktop and mobile)
         zoomed = !zoomed;
+        updateZoomedClass();
         render(center);
         console.log('Zoom toggled:', zoomed); // Debug log
       }
@@ -821,6 +837,7 @@ document.addEventListener('DOMContentLoaded', function() {
           } else if (center === idx && !isAnimating) {
             // Toggle zoom for center card on mobile (only on tap, not swipe)
             zoomed = !zoomed;
+            updateZoomedClass();
             render(center);
             console.log('Mobile zoom toggled:', zoomed); // Debug log
           }
