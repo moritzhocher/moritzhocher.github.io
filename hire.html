@@ -30,7 +30,7 @@
     </nav>
   </header>
   <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-  <main style="margin-top: 80px; text-align: center; color: #e5e7eb; flex:1 0 auto;">
+  <main style="margin-top: 80px; margin-bottom: 60px; text-align: center; color: #e5e7eb; flex:1 0 auto;">
     <h1 style="color:#bfc3c9;">Hire Me</h1>
     <p style="color:#bfc3c9;">If you are interested in working together,<br> please contact me at <a href="mailto:moritz.hocher@googlemail.com" style="color:#fff;">moritz.hocher@googlemail.com</a>.</p>
     <form class="contact-form" action="https://formspree.io/f/mwkjejel" method="POST" style="max-width:400px;margin:32px auto 0 auto;text-align:left;background:#101014;border:1.5px solid #181a1b;padding:24px 18px;border-radius:12px;box-shadow:none;">
@@ -40,7 +40,23 @@
       <input type="email" id="email" name="email" required style="width:100%;max-width:100%;box-sizing:border-box;padding:8px 10px;margin-bottom:16px;border-radius:6px;border:1.5px solid #23262b;background:#23262b;color:#e5e7eb;font-family:'Robo Sapien',sans-serif;font-size:1rem;">
       <label for="message" style="display:block;margin-bottom:8px;color:#bfc3c9;font-family:'Robo Sapien',sans-serif;font-size:1rem;">Message</label>
       <textarea id="message" name="message" rows="5" required style="width:100%;max-width:100%;box-sizing:border-box;padding:8px 10px;margin-bottom:18px;border-radius:6px;border:1.5px solid #23262b;background:#23262b;color:#e5e7eb;font-family:'Robo Sapien',sans-serif;font-size:1rem;"></textarea>
-      <button type="submit" style="width:100%;max-width:100%;box-sizing:border-box;padding:10px 0;background:#ff7a1a;color:#fff;border:none;border-radius:6px;font-family:'Robo Sapien',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;transition:background 0.18s;">Send</button>
+      <button type="button" id="submitBtn" style="width:100%;max-width:100%;box-sizing:border-box;padding:10px 0;background:#ff7a1a;color:#fff;border:none;border-radius:6px;font-family:'Robo Sapien',sans-serif;font-size:1.1rem;font-weight:700;cursor:pointer;transition:background 0.18s;">Send</button>
+      
+      <!-- Confirmation Modal -->
+      <div id="confirmationModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:1000;align-items:center;justify-content:center;">
+        <div style="background:#101014;border:1.5px solid #181a1b;padding:20px;max-width:400px;width:90%;text-align:center;">
+          <h3 style="color:#bfc3c9;font-family:Arial,sans-serif;font-size:1rem;margin-bottom:12px;">Confirm Your Message</h3>
+          <p style="color:#e5e7eb;font-family:Arial,sans-serif;font-size:0.85rem;margin-bottom:16px;line-height:1.4;">
+            Please make sure you have entered your correct email address so I can reach back to you. 
+            <br><br>
+            <strong>Email:</strong> <span id="confirmEmail" style="color:#ff7a1a;"></span>
+          </p>
+          <div style="display:flex;gap:10px;justify-content:center;">
+            <button id="confirmSend" style="padding:8px 16px;background:#ff7a1a;color:#fff;border:none;font-family:Arial,sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.18s;">Confirm & Send</button>
+            <button id="cancelSend" style="padding:8px 16px;background:#666;color:#fff;border:none;font-family:Arial,sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:background 0.18s;">Cancel & Edit</button>
+          </div>
+        </div>
+      </div>
     </form>
   </main>
   <footer class="site-footer" style="flex-shrink:0;">
@@ -166,15 +182,36 @@
         }
       }
 
-      // Contact form handling
+      // Contact form handling with confirmation
       var contactForm = document.querySelector('.contact-form');
-      var submitButton = contactForm.querySelector('button[type="submit"]');
+      var submitButton = document.getElementById('submitBtn');
+      var confirmationModal = document.getElementById('confirmationModal');
+      var confirmEmail = document.getElementById('confirmEmail');
+      var confirmSendBtn = document.getElementById('confirmSend');
+      var cancelSendBtn = document.getElementById('cancelSend');
+      var emailInput = document.getElementById('email');
       var originalButtonText = submitButton.textContent;
 
-      contactForm.addEventListener('submit', function(e) {
+      // Show confirmation modal when submit button is clicked
+      submitButton.addEventListener('click', function(e) {
         e.preventDefault();
         
-        var formData = new FormData(this);
+        var email = emailInput.value.trim();
+        if (!email) {
+          alert('Please enter your email address first.');
+          return;
+        }
+        
+        // Show the email in the confirmation modal
+        confirmEmail.textContent = email;
+        confirmationModal.style.display = 'flex';
+      });
+
+      // Handle confirm & send
+      confirmSendBtn.addEventListener('click', function() {
+        confirmationModal.style.display = 'none';
+        
+        var formData = new FormData(contactForm);
 
         // Show loading state
         submitButton.textContent = 'Sending...';
@@ -182,7 +219,7 @@
         submitButton.style.background = '#666';
 
         // Submit to Formspree
-        fetch(this.action, {
+        fetch(contactForm.action, {
           method: 'POST',
           body: formData,
           headers: {
@@ -192,7 +229,7 @@
         .then(response => {
           if (response.ok) {
             alert('Message sent successfully! I\'ll get back to you soon.');
-            this.reset();
+            contactForm.reset();
           } else {
             throw new Error('Network response was not ok');
           }
@@ -207,6 +244,20 @@
           submitButton.disabled = false;
           submitButton.style.background = '#ff7a1a';
         });
+      });
+
+      // Handle cancel & edit
+      cancelSendBtn.addEventListener('click', function() {
+        confirmationModal.style.display = 'none';
+        // Focus back to email field for easy editing
+        emailInput.focus();
+      });
+
+      // Close modal when clicking outside
+      confirmationModal.addEventListener('click', function(e) {
+        if (e.target === confirmationModal) {
+          confirmationModal.style.display = 'none';
+        }
       });
     });
   </script>
