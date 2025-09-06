@@ -255,6 +255,28 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
+    // Show mobile demo reel title during scroll animation
+    const mobileDemoTitle = document.getElementById('mobileDemoTitle');
+    if (mobileDemoTitle && window.innerWidth <= 700) {
+      if (progress >= 0.9) { // Show when 90% of scaling is complete
+        mobileDemoTitle.classList.add('visible');
+        
+        // Add staggered animation to each letter
+        const letters = mobileDemoTitle.querySelectorAll('.letter');
+        letters.forEach((letter, index) => {
+          letter.style.transitionDelay = `${index * 0.1}s`;
+        });
+      } else {
+        mobileDemoTitle.classList.remove('visible');
+        
+        // Reset letter delays when hiding
+        const letters = mobileDemoTitle.querySelectorAll('.letter');
+        letters.forEach(letter => {
+          letter.style.transitionDelay = '0s';
+        });
+      }
+    }
+
     // Hide the background/title when the card animation is done
     if (backgroundTitleHero) {
       if (progress >= 1) {

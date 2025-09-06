@@ -497,7 +497,7 @@ body {
   justify-content: center;
   border-radius: 6px;
   transition: width 0.3s, border-radius 0.3s;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
 }
 .video-mask-canvas {
@@ -1309,23 +1309,41 @@ html {
 } 
 
 .mobile-demo-title {
-  display: none;
+  position: absolute;
+  left: -400px;
+  top: 50%;
+  transform: translateY(-50%) rotate(270deg);
+  transform-origin: center;
+  font-family: 'Robo Sapien', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  font-style: italic;
+  color: #3a3d43;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  transition: left 0.8s cubic-bezier(0.25, 0.46, 0.45, 1.2), opacity 0.6s ease;
 }
-@media (max-width: 700px) {
-  .mobile-demo-title {
-    display: block;
-    width: 100vw;
-    text-align: center;
-    font-family: 'Orbitron', 'Barlow Condensed', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: 0.08em;
-    margin: 0;
-    margin-top: 1.2em;
-    margin-bottom: 0.8em;
-    background: none;
-  }
+
+.mobile-demo-title.visible {
+  opacity: 1;
+  left: -450px;
+}
+
+.mobile-demo-title .letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 1.2);
+}
+
+.mobile-demo-title.visible .letter {
+  opacity: 1;
+  transform: translateX(0);
 } 
 
 @media (max-width: 700px) {
