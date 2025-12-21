@@ -1152,15 +1152,15 @@ html {
 /* Speech Bubble Container */
 .speech-bubble-pointer {
   position: absolute;
-  top: 0;
+  top: -5px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-bottom: 20px solid #333;
-  z-index: 10;
+  border-left: 28px solid transparent;
+  border-right: 28px solid transparent;
+  border-bottom: 40px solid #333;
+  z-index: -1;
   transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
@@ -1362,26 +1362,35 @@ html {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   margin-top: 20px;
   transition: none;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  z-index: 1;
 }
 
 .process-nav-button {
   position: absolute;
-  top: 32px;
+  top: 4px;
   background: none;
   border: none;
   color: #bfc3c9;
   font-family: 'JetBrains Mono', 'Share Tech Mono', monospace;
   font-size: 0.85rem;
   cursor: pointer;
-  z-index: 20;
+  z-index: 100;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, color 0.3s ease;
-  padding: 8px 12px;
+  padding: 12px 16px;
+  min-width: 100px;
+  min-height: 40px;
   -webkit-tap-highlight-color: transparent;
   tap-highlight-color: transparent;
   -webkit-touch-callout: none;
   user-select: none;
+  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .process-step-content.active .process-nav-button {
@@ -1425,6 +1434,7 @@ html {
   justify-content: center;
   transition: none;
   position: relative;
+  transform-style: preserve-3d;
 }
 
 .process-text {
@@ -1490,7 +1500,12 @@ html {
   color: #333 !important;
   width: 32px;
   flex-shrink: 0;
-  transition: transform 0.4s ease, color 0.3s ease;
+  transition: color 0.3s ease;
+  transform-style: preserve-3d !important;
+  position: relative;
+  transform: none !important;
+  animation: none !important;
+  will-change: auto !important;
 }
 
 .process-arrow-icon svg {
@@ -1515,25 +1530,25 @@ html {
 
 @keyframes arrowSlide {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateX(12px);
+    transform: translate3d(12px, 0, 0);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes arrowSlideReverse {
   0% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateX(-12px);
+    transform: translate3d(-12px, 0, 0);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -1664,16 +1679,19 @@ html {
   
   .process-nav-button {
     font-size: 0.75rem;
-    padding: 6px 10px;
-    top: 24px;
+    padding: 10px 14px;
+    top: 6px;
+    min-width: 80px;
+    min-height: 36px;
+    z-index: 100;
   }
   
   .process-nav-prev {
-    left: calc((100% - 75%) / 2 - 8px);
+    left: calc((100% - 75%) / 2 - 48px);
   }
   
   .process-nav-next {
-    right: calc((100% - 75%) / 2 - 8px);
+    right: calc((100% - 75%) / 2 - 48px);
   }
   
   .process-text {
@@ -1718,8 +1736,13 @@ html {
   }
   
   .process-arrow-icon {
-    transform: rotate(90deg);
     margin: -20px 0;
+  }
+  
+  @media (max-width: 900px) {
+    .process-step-content.active .process-container {
+      transform-style: preserve-3d !important;
+    }
   }
   
   .process-side-div {
@@ -1787,10 +1810,11 @@ html {
   }
   
   .speech-bubble-pointer {
-    border-left-width: 10px;
-    border-right-width: 10px;
-    border-bottom-width: 16px;
-    top: 0;
+    border-left-width: 20px;
+    border-right-width: 20px;
+    border-bottom-width: 30px;
+    top: -5px;
+    z-index: -1;
   }
   
   .process-step-content {
@@ -1817,23 +1841,25 @@ html {
   
   .process-container {
     flex-direction: column;
-    transform: none !important;
     width: 100% !important;
     max-width: 100% !important;
   }
   
   .process-nav-button {
     font-size: 0.7rem;
-    padding: 5px 8px;
-    top: 22px;
+    padding: 10px 12px;
+    top: 4px;
+    min-width: 70px;
+    min-height: 32px;
+    z-index: 100;
   }
   
   .process-nav-prev {
-    left: calc((100% - 70%) / 2 - 8px);
+    left: calc((100% - 70%) / 2 - 48px);
   }
   
   .process-nav-next {
-    right: calc((100% - 70%) / 2 - 8px);
+    right: calc((100% - 70%) / 2 - 48px);
   }
   
   .process-step-content .process-container {

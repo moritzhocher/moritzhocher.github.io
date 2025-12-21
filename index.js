@@ -1264,7 +1264,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
   let previousStepIndex = 0;
   
+  // 3D tilt effect variables
+  let processTiltX = 0;
+  let processTiltY = 0;
+  let processTargetTiltX = 0;
+  let processTargetTiltY = 0;
+  
   function switchStep(stepIndex) {
+    // Reset tilt when switching
+    processTargetTiltX = 0;
+    processTargetTiltY = 0;
+    
     // Remove active class from all steps and content
     timelineSteps.forEach((step, index) => {
       if (index === stepIndex) {
@@ -1298,23 +1308,15 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    // Trigger arrow animation after content is visible
-    setTimeout(() => {
-      const activeContent = contentSections[stepIndex];
-      if (activeContent && activeContent.classList.contains('active')) {
-        const arrowIcons = activeContent.querySelectorAll('.process-arrow-icon');
-        arrowIcons.forEach(arrow => {
-          // Remove any existing animation
-          arrow.style.animation = 'none';
-          // Force reflow to reset
-          void arrow.offsetWidth;
-          // Determine animation direction
-          const direction = stepIndex > previousStepIndex ? 'arrowSlide' : 'arrowSlideReverse';
-          // Apply animation
-          arrow.style.animation = `${direction} 0.6s ease`;
-        });
-      }
-    }, 100);
+    // Remove arrow animation - arrow will tilt with parent container
+    const activeContent = contentSections[stepIndex];
+    if (activeContent && activeContent.classList.contains('active')) {
+      const arrowIcons = activeContent.querySelectorAll('.process-arrow-icon');
+      arrowIcons.forEach(arrow => {
+        arrow.style.animation = 'none';
+        arrow.style.transform = '';
+      });
+    }
     
     previousStepIndex = stepIndex;
     
@@ -1356,6 +1358,91 @@ document.addEventListener('DOMContentLoaded', function() {
   if (timelineSteps.length > 0) {
     switchStep(0);
   }
+  
+  // Add 3D tilt effect to process cards
+  const MAX_TILT = 8; // degrees
+  const TILT_SMOOTH = 0.1; // smooth interpolation
+  const TILT_MARGIN = 0.25; // 25% margin outside the card for tilt
+  
+  function updateProcessTilt() {
+    processTiltX += (processTargetTiltX - processTiltX) * TILT_SMOOTH;
+    processTiltY += (processTargetTiltY - processTiltY) * TILT_SMOOTH;
+    
+    // Apply tilt to active card only
+    const activeIndex = Array.from(timelineSteps).findIndex(step => step.classList.contains('active'));
+    if (activeIndex !== -1) {
+      const activeContent = contentSections[activeIndex];
+      if (activeContent) {
+        const container = activeContent.querySelector('.process-container');
+        if (container) {
+          // Apply transform to container with !important priority via setProperty
+          const baseTransform = `perspective(1000px) rotateX(${processTiltX}deg) rotateY(${processTiltY}deg)`;
+          container.style.setProperty('transform', baseTransform, 'important');
+          container.style.setProperty('transform-style', 'preserve-3d', 'important');
+          container.style.setProperty('will-change', 'transform', 'important');
+          
+          // Force arrow to have NO transform - it MUST inherit from parent
+          const arrowIcons = activeContent.querySelectorAll('.process-arrow-icon');
+          arrowIcons.forEach(arrow => {
+            arrow.style.setProperty('transform', 'none', 'important');
+            arrow.style.setProperty('animation', 'none', 'important');
+            arrow.style.setProperty('transform-style', 'preserve-3d', 'important');
+          });
+          
+          const navButtons = activeContent.querySelectorAll('.process-nav-button');
+          navButtons.forEach(button => {
+            button.style.setProperty('transform-style', 'preserve-3d', 'important');
+          });
+        }
+      }
+    } else {
+      // Reset transforms when no card is active
+      contentSections.forEach((content) => {
+        const container = content.querySelector('.process-container');
+        if (container) {
+          container.style.removeProperty('transform');
+          container.style.removeProperty('will-change');
+        }
+        const arrowIcons = content.querySelectorAll('.process-arrow-icon');
+        arrowIcons.forEach(arrow => {
+          arrow.style.removeProperty('transform');
+          arrow.style.removeProperty('will-change');
+        });
+      });
+    }
+    
+    requestAnimationFrame(updateProcessTilt);
+  }
+  
+  // Add mousemove and mouseleave listeners for tilt on process cards
+  contentSections.forEach((content) => {
+    const container = content.querySelector('.process-container');
+    if (container) {
+      container.addEventListener('mousemove', function(e) {
+        // Only apply tilt if this card is active
+        if (!content.classList.contains('active')) return;
+        
+        const rect = container.getBoundingClientRect();
+        const marginX = rect.width * TILT_MARGIN;
+        const marginY = rect.height * TILT_MARGIN;
+        const x = Math.max(-marginX, Math.min(rect.width + marginX, e.clientX - rect.left));
+        const y = Math.max(-marginY, Math.min(rect.height + marginY, e.clientY - rect.top));
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        processTargetTiltY = ((x - centerX) / (centerX + marginX)) * MAX_TILT;
+        processTargetTiltX = (-(y - centerY) / (centerY + marginY)) * MAX_TILT;
+      });
+      
+      container.addEventListener('mouseleave', function() {
+        processTargetTiltX = 0;
+        processTargetTiltY = 0;
+      });
+    }
+  });
+  
+  // Start tilt animation loop
+  updateProcessTilt();
+  
   
   // Add swipe detection for mobile
   const processContentWrapper = document.querySelector('.process-content-wrapper');
