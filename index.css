@@ -1122,7 +1122,7 @@ html {
 /* ====== Process Section ====== */
 .process-section-wrapper {
   width: 100%;
-  padding: 140px 20px;
+  padding: 238px 20px;
   background: transparent;
   box-sizing: border-box;
   position: relative;
@@ -1619,7 +1619,7 @@ html {
 
 @media (max-width: 900px) {
   .process-section-wrapper {
-    padding: 110px 16px;
+    padding: 187px 16px;
   }
   
   .process-section-title {
@@ -1734,7 +1734,7 @@ html {
 
 @media (max-width: 700px) {
   .process-section-wrapper {
-    padding: 90px 12px;
+    padding: 153px 12px;
   }
   
   .process-section-title {
