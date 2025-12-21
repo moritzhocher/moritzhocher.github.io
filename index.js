@@ -1228,4 +1228,167 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 }); 
 
-// (Coding Torque carousel logic removed) 
+// (Coding Torque carousel logic removed)
+
+// ===== Interactive Process Timeline =====
+document.addEventListener('DOMContentLoaded', function() {
+  const timelineSteps = document.querySelectorAll('.timeline-step');
+  const contentSections = document.querySelectorAll('.process-step-content');
+  const speechBubblePointer = document.getElementById('speechBubblePointer');
+  const timelineNav = document.querySelector('.process-timeline-nav');
+  
+  function updateSpeechBubblePosition(stepIndex) {
+    if (!timelineNav) return;
+    
+    const activeStep = timelineSteps[stepIndex];
+    const activeContent = contentSections[stepIndex];
+    if (!activeStep || !activeContent) return;
+    
+    const activePointer = activeContent.querySelector('.speech-bubble-pointer');
+    if (!activePointer) return;
+    
+    // Get positions relative to the viewport
+    const stepRect = activeStep.getBoundingClientRect();
+    const contentRect = activeContent.getBoundingClientRect();
+    
+    // Calculate the center of the active step
+    const stepCenterX = stepRect.left + stepRect.width / 2;
+    
+    // Position the pointer relative to the content container
+    const contentLeft = contentRect.left;
+    const pointerLeft = stepCenterX - contentLeft;
+    
+    activePointer.style.left = pointerLeft + 'px';
+    activePointer.style.transform = 'translateX(-50%)';
+  }
+  
+  let previousStepIndex = 0;
+  
+  function switchStep(stepIndex) {
+    // Remove active class from all steps and content
+    timelineSteps.forEach((step, index) => {
+      if (index === stepIndex) {
+        step.classList.add('active');
+      } else {
+        step.classList.remove('active');
+      }
+    });
+    
+    contentSections.forEach((content, index) => {
+      if (index === stepIndex) {
+        content.classList.add('active');
+      } else {
+        content.classList.remove('active');
+      }
+    });
+    
+    // Update navigation button visibility
+    contentSections.forEach((content, index) => {
+      const prevButton = content.querySelector('.process-nav-prev');
+      const nextButton = content.querySelector('.process-nav-next');
+      
+      if (index === stepIndex) {
+        // Show/hide buttons based on position
+        if (prevButton) {
+          prevButton.style.display = index === 0 ? 'none' : 'block';
+        }
+        if (nextButton) {
+          nextButton.style.display = index === contentSections.length - 1 ? 'none' : 'block';
+        }
+      }
+    });
+    
+    // Trigger arrow animation after content is visible
+    setTimeout(() => {
+      const activeContent = contentSections[stepIndex];
+      if (activeContent && activeContent.classList.contains('active')) {
+        const arrowIcons = activeContent.querySelectorAll('.process-arrow-icon');
+        arrowIcons.forEach(arrow => {
+          // Remove any existing animation
+          arrow.style.animation = 'none';
+          // Force reflow to reset
+          void arrow.offsetWidth;
+          // Determine animation direction
+          const direction = stepIndex > previousStepIndex ? 'arrowSlide' : 'arrowSlideReverse';
+          // Apply animation
+          arrow.style.animation = `${direction} 0.6s ease`;
+        });
+      }
+    }, 100);
+    
+    previousStepIndex = stepIndex;
+    
+    // Update speech bubble pointer position
+    setTimeout(() => {
+      updateSpeechBubblePosition(stepIndex);
+    }, 50);
+  }
+  
+  // Make switchToStep available globally for button onclick handlers
+  window.switchToStep = function(stepIndex) {
+    switchStep(stepIndex);
+  };
+  
+  // Add click handlers to timeline steps
+  timelineSteps.forEach((step, index) => {
+    step.addEventListener('click', () => {
+      switchStep(index);
+    });
+    
+    // Keyboard accessibility
+    step.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        switchStep(index);
+      }
+    });
+  });
+  
+  // Update pointer position on window resize
+  window.addEventListener('resize', () => {
+    const activeIndex = Array.from(timelineSteps).findIndex(step => step.classList.contains('active'));
+    if (activeIndex !== -1) {
+      updateSpeechBubblePosition(activeIndex);
+    }
+  });
+  
+  // Initialize with first step active
+  if (timelineSteps.length > 0) {
+    switchStep(0);
+  }
+  
+  // Add swipe detection for mobile
+  const processContentWrapper = document.querySelector('.process-content-wrapper');
+  if (processContentWrapper) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    
+    processContentWrapper.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    
+    processContentWrapper.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      touchEndY = e.changedTouches[0].screenY;
+      
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      
+      // Check if horizontal swipe is greater than vertical (to avoid conflicts with scrolling)
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        const currentIndex = Array.from(timelineSteps).findIndex(step => step.classList.contains('active'));
+        
+        if (deltaX > 0 && currentIndex > 0) {
+          // Swipe right - go to previous card
+          switchStep(currentIndex - 1);
+        } else if (deltaX < 0 && currentIndex < contentSections.length - 1) {
+          // Swipe left - go to next card
+          switchStep(currentIndex + 1);
+        }
+      }
+    }, { passive: true });
+  }
+});
